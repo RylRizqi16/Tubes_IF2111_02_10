@@ -97,6 +97,10 @@ void StoreRequest(QueueBarang *store, QueueBarang *request) {
         printf("Antrian request penuh!\n");
     }
 }
+
+void StoreSupply(QueueBarang *store, QueueBarang *request);
+void StoreRemove(QueueBarang *store, QueueBarang *request);
+
 int main() {
     QueueBarang q;
     // Menampilkan list kosong
