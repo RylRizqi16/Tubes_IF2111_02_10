@@ -42,8 +42,7 @@ boolean isBarangAda(QueueBarang *q, char *nama) {
     for (i = 0; i < q->size; i++) {
         int j = 0;
         boolean same = true;
-        
-        // Bandingkan nama barang
+
         while (q->data[currentIdx].nama[j] != '\0' && nama[j] != '\0') {
             if (q->data[currentIdx].nama[j] != nama[j]) {
                 same = false;
@@ -51,8 +50,7 @@ boolean isBarangAda(QueueBarang *q, char *nama) {
             }
             j++;
         }
-        
-        // Pastikan kedua string sudah habis
+
         if (q->data[currentIdx].nama[j] != nama[j]) {
             same = false;
         }
@@ -69,36 +67,84 @@ boolean isBarangAda(QueueBarang *q, char *nama) {
 void StoreRequest(QueueBarang *store, QueueBarang *request) {
     printf("Nama barang yang diminta: ");
     
-    // Baca nama barang menggunakan mesin kata
     STARTWORD();
-    
-    // Konversi Word ke string
+
     char namaBarang[MAX_LEN];
     WordToString(CurrentWord, namaBarang);
-    
-    // Cek apakah barang sudah ada di toko
+
     if (isBarangAda(store, namaBarang)) {
         printf("Barang dengan nama yang sama sudah ada di toko!\n");
         return;
     }
-    
-    // Cek apakah barang sudah ada di antrian
+
     if (isBarangAda(request, namaBarang)) {
         printf("Barang dengan nama yang sama sudah ada di antrian!\n");
         return;
     }
-    
-    // Jika belum ada, tambahkan ke antrian request
-    Barang newBarang = createBarang(namaBarang, 0); // harga 0 karena belum ditentukan
+
+    Barang newBarang = createBarang(namaBarang, 0); 
     if (enqueue(request, newBarang)) {
-        // Berhasil menambahkan ke antrian
         printf("Barang berhasil ditambahkan!\n");
     } else {
         printf("Antrian request penuh!\n");
     }
 }
+int TerimaTolakTunda(const char *str1, const char *str2) {
+    while (*str1 != '\0' && *str2 != '\0') {
+        if (*str1 != *str2) {
+            return 0; 
+        }
+        str1++;
+        str2++;
+    }
+    return (*str1 == '\0' && *str2 == '\0');
+}
 
-void StoreSupply(QueueBarang *store, QueueBarang *request);
+void StoreSupply(QueueBarang *request){
+    Barang currentBarang;
+    dequeue(request,&currentBarang);
+    printf("Apakah kamu ingin menambahkan barang ");
+    int j = 0;
+    while (currentBarang.nama[j] != '\0') {
+        printf("%c", currentBarang.nama[j]);
+        j++;
+    }
+    printf("? \n");
+    printf("Ketik: Terima / Tunda / Tolak\n");
+    printf("\n>>> ");
+    STARTWORD();
+    printf("\n");
+    char perintah[MAX_LEN];
+    WordToString(CurrentWord, perintah);
+    if (TerimaTolakTunda("Terima",perintah)){
+        printf("Masukkan harga barang: ");
+        STARTWORD();
+        char harga[MAX_LEN];
+        WordToString(CurrentWord,harga);
+        printf("\n");
+        int j = 0;
+        while (currentBarang.nama[j] != '\0') {
+            printf("%c", currentBarang.nama[j]);
+            j++;
+        }
+        printf(" dengan harga %d berhasil ditambahkan ke toko.\n" , CharToInt(harga));
+    } else if (TerimaTolakTunda("Tunda",perintah)){
+        enqueue (request,currentBarang);
+        int j = 0;
+        while (currentBarang.nama[j] != '\0') {
+            printf("%c", currentBarang.nama[j]);
+            j++;
+        }
+        printf(" dikembalikan ke antrian.\n");
+    } else if (TerimaTolakTunda("Tolak",perintah)){
+        int j = 0;
+        while (currentBarang.nama[j] != '\0') {
+            printf("%c", currentBarang.nama[j]);
+            j++;
+        }
+        printf(" dihapus dari antrian.\n");
+    }
+}
 void StoreRemove(QueueBarang *store, QueueBarang *request);
 
 int main() {
@@ -128,5 +174,14 @@ int main() {
     Barang b3 = createBarang("Makanan Enak", 500);
     enqueue(&request, b3);
     StoreRequest(&q, &request);
+    // Simulasi command STORE SUPPLY
+    QueueBarang q;
+    CreateQueueBarang(&q);
+    Barang b1 = createBarang("Platypus Laser", 1000);
+    Barang b2 = createBarang("Shrink Ray", 2000);
+    enqueue(&q, b1);
+    enqueue(&q, b2);
+    StoreSupply(&q);
+    StoreList(&q);
     return 0;
 }

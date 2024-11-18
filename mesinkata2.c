@@ -32,9 +32,28 @@ void ADVWORD() {
     }
 }
 
+void ADVWORD2() {
+    IgnoreBlanks();
+    if (IsEOP()) {
+        EndWord = true;
+    } else {
+        CopyWord2();
+        IgnoreBlanks();
+    }
+}
+
 void CopyWord() {
     int i = 0;
     while ((currentChar != ENTER) && (currentChar != MARK&& i < NMax)) {
+        CurrentWord.TabWord[i] = currentChar;
+        ADV();
+        i++;
+    }
+    CurrentWord.Length = i;
+}
+void CopyWord2() {
+    int i = 0;
+    while ((currentChar != BLANK) && (currentChar != MARK&& i < NMax)) {
         CurrentWord.TabWord[i] = currentChar;
         ADV();
         i++;
@@ -63,4 +82,26 @@ void WordToString(Word word, char* str){
         str[i] = word.TabWord[i];
     }
     str[i] = '\0';
+}
+
+int CharToInt(const char *str) {
+    int result = 0; 
+    int negatif = 1;  
+    int i = 0;
+   
+    if (str[0] == '-') {
+        negatif = -1;
+        i++; 
+    }
+
+    while (str[i] != '\0') {
+        if (str[i] < '0' || str[i] > '9') {
+            printf("Error: Input bukan angka valid.\n");
+            return 0;
+        }
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+
+    return result * negatif;
 }
