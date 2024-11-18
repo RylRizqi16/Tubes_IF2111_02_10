@@ -89,6 +89,7 @@ void StoreRequest(QueueBarang *store, QueueBarang *request) {
         printf("Antrian request penuh!\n");
     }
 }
+
 int TerimaTolakTunda(const char *str1, const char *str2) {
     while (*str1 != '\0' && *str2 != '\0') {
         if (*str1 != *str2) {
