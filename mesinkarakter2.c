@@ -5,7 +5,13 @@ char currentChar;
 boolean EOP;
 
 void START() {
-    currentChar = getchar();
+    // currentChar = getchar();
+    // if (currentChar == MARK) {
+    //     EOP = true;
+    // } else {
+    //     EOP = false;
+    // }
+    fscanf(stdin, "%c", &currentChar);
     if (currentChar == MARK) {
         EOP = true;
     } else {
@@ -14,8 +20,14 @@ void START() {
 }
 
 void ADV() {
+    // if (currentChar != MARK) {
+    //     currentChar = getchar();
+    //     if (currentChar == MARK) {
+    //         EOP = true;
+    //     }
+    // }
     if (currentChar != MARK) {
-        currentChar = getchar();
+        fscanf(stdin, "%c", &currentChar);
         if (currentChar == MARK) {
             EOP = true;
         }
