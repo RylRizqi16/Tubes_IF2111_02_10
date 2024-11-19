@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 
-void StoreList(QueueBarang *q) {
+void QueueList(QueueBarang *q) {
     int i;
     int currentIdx;
     

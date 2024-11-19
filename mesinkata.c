@@ -9,18 +9,18 @@ void ClearCurrentWord()
     currentWord.Length = 0;
 }
 
-boolean IsEqual(Word str1, char *str2)
-{
-    int i = 0;
-    boolean checker = (str1.Length == stringLength(str2));
-    while (str1.TabWord[i] != '\0' && str2[i] != '\0' && checker)
-    {
-        if (str1.TabWord[i] != str2[i])
-            checker = false;
-        i++;
-    }
-    return checker;
-}
+// boolean IsEqual(Word str1, char *str2)
+// {
+//     int i = 0;
+//     boolean checker = (str1.Length == stringLength(str2));
+//     while (str1.TabWord[i] != '\0' && str2[i] != '\0' && checker)
+//     {
+//         if (str1.TabWord[i] != str2[i])
+//             checker = false;
+//         i++;
+//     }
+//     return checker;
+// }
 
 void ConcatWords(Word *str1, char separator, Word str2)
 {
@@ -47,7 +47,7 @@ void IgnoreBlanks()
 
 void IgnoreLines()
 {
-    while (GetCC() == NEWLINE)
+    while (GetCC() == ENTER)
         ADV();
 }
 
@@ -57,10 +57,16 @@ void STARTWORD(char *path, char *type)
     ADVWORD();
 }
 
+void STARTSENTENCE(char *path, char *type)
+{
+    START(path, type);
+    ADVSENTENCE();
+}
+
 void ADVWORD()
 {
     IgnoreBlanks();
-    if (GetCC() == BLANK || GetCC() == MARK)
+    if (GetCC() == BLANK || GetCC() == MARK || GetCC() == ENTER)
         EndWord = true;
     else
     {
@@ -70,21 +76,27 @@ void ADVWORD()
     IgnoreBlanks();
 }
 
-void ADVLINE()
+void ADVSENTENCE()
 {
-    IgnoreLines();
-    int count = 0;
-    ADVWORD();
-    Word tempWord = currentWord;
-    while (!IsEOP() && GetCC() != NEWLINE)
+    IgnoreBlanks();
+    if (GetCC() == BLANK || GetCC() == MARK)
+        EndWord = true;
+    else
     {
-        ADVWORD();
-        ConcatWords(&tempWord, ' ', currentWord);
-        count++;
+        EndWord = false;
+        CopySentence();
     }
-    if (count > 0)
-        currentWord = tempWord;
-    IgnoreLines();
+    IgnoreBlanks();
+}
+
+void CopySentence() {
+    int i = 0;
+    while ((currentChar != ENTER) && (currentChar != MARK&& i < NMax)) {
+        currentWord.TabWord[i] = currentChar;
+        ADV();
+        i++;
+    }
+    currentWord.Length = i;
 }
 
 void CopyWord()
@@ -94,7 +106,7 @@ void CopyWord()
     {
         currentWord.TabWord[i] = GetCC();
         ADV();
-        if (GetCC() == BLANK || GetCC() == MARK)
+        if (GetCC() == BLANK || GetCC() == MARK || GetCC() == ENTER)
             EndWord = true;
         i++;
     }
@@ -133,4 +145,15 @@ int CharToInt(const char *str) {
     }
 
     return result * negatif;
+}
+
+int BandingkanChar(const char *str1, const char *str2) {
+    while (*str1 != '\0' && *str2 != '\0') {
+        if (*str1 != *str2) {
+            return 0; 
+        }
+        str1++;
+        str2++;
+    }
+    return (*str1 == '\0' && *str2 == '\0');
 }

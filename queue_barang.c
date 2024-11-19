@@ -49,3 +49,36 @@ int dequeue(QueueBarang *q, Barang *barang) {
     q->size--;
     return 1;
 }
+
+boolean BarangDiAntrian(QueueBarang *q, char *nama) {
+    if (isEmpty(q)) {
+        return 0;
+    }
+    
+    int i;
+    int currentIdx = q->idxHead;
+    
+    for (i = 0; i < q->size; i++) {
+        int j = 0;
+        boolean same = true;
+
+        while (q->data[currentIdx].nama[j] != '\0' && nama[j] != '\0') {
+            if (q->data[currentIdx].nama[j] != nama[j]) {
+                same = false;
+                break;
+            }
+            j++;
+        }
+
+        if (q->data[currentIdx].nama[j] != nama[j]) {
+            same = false;
+        }
+        
+        if (same) {
+            return 1;
+        }
+        
+        currentIdx = (currentIdx + 1) % CAPACITY;
+    }
+    return 0;
+}

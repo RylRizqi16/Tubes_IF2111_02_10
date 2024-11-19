@@ -1,5 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUEBARANG_H
+#define QUEUEBARANG_H
 
 #include "barang.h"
 #include "boolean.h"
@@ -24,5 +24,6 @@ boolean isEmpty(QueueBarang *q);
 boolean isFull(QueueBarang *q);
 int enqueue(QueueBarang *q, Barang barang);
 int dequeue(QueueBarang *q, Barang *barang);
+boolean BarangDiAntrian(QueueBarang *q, char *nama);
 
 #endif

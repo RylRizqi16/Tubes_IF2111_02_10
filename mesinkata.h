@@ -17,9 +17,11 @@ typedef struct
 
 /* State Mesin Kata */
 extern boolean EndWord;
-extern Word CurrentWord;
+extern Word currentWord;
 
 extern void ClearCurrentWord();
+
+// boolean IsEqual(Word str1, char *str2);
 
 extern void ConcatWords(Word *str1, char separator, Word str2);
 
@@ -27,17 +29,22 @@ extern void IgnoreBlanks();
 
 extern void IgnoreLines();
 
+extern void STARTSENTENCE(char *path, char *type);
+
 extern void STARTWORD(char *path, char *type);
+
+extern void ADVSENTENCE();
 
 extern void ADVWORD();
 
-extern void ADVLINE();
-
 extern void CopyWord();
+
+extern void CopySentence();
 
 void WordToString(Word word, char* str);
 
 int CharToInt(const char *str);
 
+int BandingkanChar(const char *str1, const char *str2);
 
 #endif
