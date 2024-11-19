@@ -9,18 +9,18 @@ void ClearCurrentWord()
     currentWord.Length = 0;
 }
 
-// boolean IsEqual(Word str1, char *str2)
-// {
-//     int i = 0;
-//     boolean checker = (str1.Length == stringLength(str2));
-//     while (str1.TabWord[i] != '\0' && str2[i] != '\0' && checker)
-//     {
-//         if (str1.TabWord[i] != str2[i])
-//             checker = false;
-//         i++;
-//     }
-//     return checker;
-// }
+boolean IsEqual(Word str1, char *str2)
+{
+    int i = 0;
+    boolean checker = (str1.Length == stringLength(str2));
+    while (str1.TabWord[i] != '\0' && str2[i] != '\0' && checker)
+    {
+        if (str1.TabWord[i] != str2[i])
+            checker = false;
+        i++;
+    }
+    return checker;
+}
 
 void ConcatWords(Word *str1, char separator, Word str2)
 {
@@ -104,31 +104,6 @@ void CopyWord()
         currentWord.Length = NMax;
     currentWord.TabWord[i] = '\0';
 }
-
-void CopyWord2() {
-    int i = 0;
-    while ((currentChar != BLANK) && (currentChar != MARK&& i < NMax)) {
-        currentWord.TabWord[i] = currentChar;
-        ADV();
-        i++;
-    }
-    currentWord.Length = i;
-}
-
-boolean IsWordEqual(Word word1, Word word2){
-    if (word1.Length != word2.Length) {
-        return false;
-    }
-    
-    int i;
-    for (i = 0; i < word1.Length; i++) {
-        if (word1.TabWord[i] != word2.TabWord[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
 
 void WordToString(Word word, char* str){
     int i;
