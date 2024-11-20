@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "barang.h"
-#include "boolean.h"
-#include "mesinkata.h"
+#include "../../header/boolean.h"
+#include "../Barang/barang.h"
+#include "../Mesin_Kata/mesinkata.h"
 
 #define InitialSize 10
 

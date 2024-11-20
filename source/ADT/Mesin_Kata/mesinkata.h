@@ -4,7 +4,7 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "..\ADT\Mesin_Karakter\mesinkarakter.h"
+#include "../Mesin_Karakter/mesinkarakter.h"
 
 #define NMax 50
 #define BLANK ' '

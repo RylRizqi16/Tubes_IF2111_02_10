@@ -1,8 +1,8 @@
 #ifndef QUEUEBARANG_H
 #define QUEUEBARANG_H
 
-#include "barang.h"
-#include "boolean.h"
+#include "../Barang/barang.h"
+#include "../../header/boolean.h"
 
 #define IDX_UNDEF -1
 #define CAPACITY 100

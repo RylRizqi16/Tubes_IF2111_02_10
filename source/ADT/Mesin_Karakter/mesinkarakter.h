@@ -5,7 +5,7 @@
 #define __MESINKARAKTER_H_
 
 #include <stdio.h>
-#include "boolean.h"
+#include "../../header/boolean.h"
 
 #define MARK '.'
 #define ENTER '\n'
