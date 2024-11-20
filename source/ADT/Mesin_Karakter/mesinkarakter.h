@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include "boolean.h"
 
-#define MARK '\n'
-#define NEWLINE '\n'
+#define MARK '.'
+#define ENTER '\n'
 
 /* State Mesin */
 extern int retval;

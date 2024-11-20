@@ -4,8 +4,7 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "boolean.h"
-#include "mesinkarakter.h"
+#include "..\ADT\Mesin_Karakter\mesinkarakter.h"
 
 #define NMax 50
 #define BLANK ' '
@@ -18,32 +17,34 @@ typedef struct
 
 /* State Mesin Kata */
 extern boolean EndWord;
-extern Word CurrentWord;
+extern Word currentWord;
 
-void IgnoreBlanks();
-/* Mengabaikan satu atau beberapa BLANK
-   I.S. : currentChar sembarang
-   F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+extern void ClearCurrentWord();
 
-void STARTWORD();
-/* I.S. : currentChar sembarang
-   F.S. : EndWord = true, dan currentChar = MARK;
-          atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
-          currentChar karakter pertama sesudah karakter terakhir kata */
+// boolean IsEqual(Word str1, char *str2);
 
-void ADVWORD();
-/* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
-   F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
-          currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
-          Jika currentChar = MARK, EndWord = true.
-   Proses : Akuisisi kata menggunakan procedure SalinWord */
+extern void ConcatWords(Word *str1, char separator, Word str2);
 
-void CopyWord();
-/* Mengakuisisi kata, menyimpan dalam currentWord
-   I.S. : currentChar adalah karakter pertama dari kata
-   F.S. : currentWord berisi kata yang sudah diakuisisi;
-          currentChar = BLANK atau currentChar = MARK;
-          currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
-          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+extern void IgnoreBlanks();
+
+extern void IgnoreLines();
+
+extern void STARTSENTENCE(char *path, char *type);
+
+extern void STARTWORD(char *path, char *type);
+
+extern void ADVSENTENCE();
+
+extern void ADVWORD();
+
+extern void CopyWord();
+
+extern void CopySentence();
+
+void WordToString(Word word, char* str);
+
+int CharToInt(const char *str);
+
+int BandingkanChar(const char *str1, const char *str2);
 
 #endif
