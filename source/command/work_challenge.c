@@ -68,11 +68,11 @@ int wordl3(){
                     "april","apron","apung","arang","arbab","areal","arena","argon","aries","aroma","arsip","arsir","artis","arung","arwah","asasi"};
     int a = rng() % 80;
     char random_word[6];
-    for(int i=0;i<5;i++){
-        random_word[i] = word[a][i];
+    for(int j=0;j<5;j++){
+        random_word[j] = word[a][j];
     }
-    printf("Selamat datang di WORDL3!!!");
-    printf("Anda mempunyai 5 kesempatan untuk menebak kata berikut!");
+    printf("\n\nSelamat datang di WORDL3!!!\n");
+    printf("Anda mempunyai 5 kesempatan untuk menebak kata tersebunyi berikut!\n\n");
     int i = 5;
     for(int l=0;l<i;l++){
             for(int m=0;m<4;m++){
@@ -94,14 +94,28 @@ int wordl3(){
             printf("Coba ulangi lagi :)\n");
             continue;
         }
-        boolean check_char[5];
-        boolean check_place[5];
+        if(currentWord.TabWord[0] == random_word[0]){
+            if(currentWord.TabWord[1] == random_word[1]){
+                if(currentWord.TabWord[2] == random_word[2]){
+                    if(currentWord.TabWord[3] == random_word[3]){
+                        if(currentWord.TabWord[4] == random_word[4]){
+                            printf("\nSelamat, Anda berhasil menebak kata tersebunyi!!!\n");
+                            printf("%d rupiah telah ditambahkan ke akun anda.\n\n",prize);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        boolean check_char[] = {false,false,false,false,false};
+        boolean check_place[] = {false,false,false,false,false};
         for(int j=0;j<5;j++){
             for(int k=0;k<5;k++){
                 if(currentWord.TabWord[j] == random_word[k]){
                     check_char[j] = true;
                     if(j == k){
                         check_place[j]=true;
+                        break;
                     }
                 }
             }
@@ -121,6 +135,7 @@ int wordl3(){
             }
             history[5-i][j*3 + 2] = ' ';
         }
+        i--;
         printf("Hasil:\n");
         for(int j=5;j>i;j--){
             for(int k=0;k<15;k++){
@@ -134,7 +149,6 @@ int wordl3(){
             }
             printf("_\n");
         }
-        i--;
     }
     return prize;
 }
@@ -149,8 +163,11 @@ int work_challenge(){
         if(currentWord.Length == 1 & currentWord.TabWord[0] == '1'){
             return tebak_angka();
         }
+        else if(currentWord.Length == 1 & currentWord.TabWord[0] == '2'){
+            return wordl3();
+        }
         else{
-            printf("Tidak ada masukkan yang cocok. Silahkan coba kembali.\n\n");
+            printf("\nTidak ada masukkan yang cocok. Silahkan coba kembali.\n\n");
         }
     }   
 }
