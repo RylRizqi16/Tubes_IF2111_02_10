@@ -1,8 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<math.h>
-#include"../ADT/Mesin_Kata/mesinkata.h"
+#include "work_challenge.h"
 
 int rng(){
     srand(time(NULL));
@@ -61,12 +57,22 @@ int tebak_angka(){
 
 int wordl3(){
     int prize = 1500;
-    char word[80][6] = {"abadi","abang","abjad","absah","absen","acara","acung","adisi","afiks","agama","agami","agung","ajaib","ajang","akbar","akhir",
-                    "akmal","akrab","aksen","aksep","akses","aksis","aktif","aktor","alami","alarm","album","alias","alibi","altar","ambil","ambur",
-                    "amino","amorf","ampas","ampuh","ampun","amsal","amuba","ancam","ancol","andai","andal","andil","aneka","angan","angga","angin",
-                    "angka","angsa","anion","anjak","anode","antar","antek","antik","antre","antri","antuk","anual","anyam","anyir","aorta","apati",
-                    "april","apron","apung","arang","arbab","areal","arena","argon","aries","aroma","arsip","arsir","artis","arung","arwah","asasi"};
-    int a = rng() % 80;
+    char word[240][6] = {"abadi","abang","abjad","absah","absen","acara","acung","adisi","afiks","agama","agami","agung","ajaib","ajang","akbar","akhir",
+                        "akmal","akrab","aksen","aksep","akses","aksis","aktif","aktor","alami","alarm","album","alias","alibi","altar","ambil","ambur",
+                        "amino","amorf","ampas","ampuh","ampun","amsal","amuba","ancam","ancol","andai","andal","andil","aneka","angan","angga","angin",
+                        "angka","angsa","anion","anjak","anode","antar","antek","antik","antre","antri","antuk","anual","anyam","anyir","aorta","apati",
+                        "april","apron","apung","arang","arbab","areal","arena","argon","aries","aroma","arsip","arsir","artis","arung","arwah","asasi",
+                        "asbak","asbes","asing","aspal","aspek","aster","asyik","ateis","atlas","atlet","audio","aurat","avtur","babak","babat","babon",
+                        "babun","bacem","bacok","bacot","badai","badak","badan","badui","badut","bagai","bagan","bagus","bahan","bahas","bahwa","bajaj",
+                        "bajak","bakal","bakar","bakat","bakau","bakmi","bakso","bakti","bakul","balad","balet","balig","balik","balok","balon","balut",
+                        "bambu","banci","bando","bantu","bapak","barak","barat","barel","baret","baris","baron","basah","basil","basis","basmi","basuh",
+                        "batas","batik","batin","batok","batuk","bawah","bawel","bayam","bayar","bayam","bazar","bebal","beban","bebas","bebek","beber",
+                        "becak","becek","becus","bedah","bedak","beduk","begah","begal","bejat","bekal","bekas","belah","belai","belas","belek","belia",
+                        "belok","belot","beluk","belum","belut","benah","benak","benam","benar","benci","benda","benih","benua","berai","berak","beras",
+                        "berat","beres","besar","beset","besit","besok","besuk","betah","betis","beton","betul","biang","biara","biasa","biaya","bibir",
+                        "bibit","bidah","bidak","bidan","bidet","bidik","biduk","bihun","bijak","bijih","bikin","biksu","bilah","bilas","bilik","bilur",
+                        "binal","binar","biner","biola","biota","birit","bisik","bison","bisul","blong","blues","bobol","bodoh","bogor","bokek","bolak"};
+    int a = rng() % 240;
     char random_word[6];
     for(int j=0;j<5;j++){
         random_word[j] = word[a][j];
@@ -83,7 +89,7 @@ int wordl3(){
     char history[5][16];
     while(1){
         if(i == 0){
-            printf("\nSayang sekali, sepertinya anda belum berhasil. ;)");
+            printf("\nSayang sekali, sepertinya anda belum berhasil ;)\n");
             prize = 0;
             break;
         }
@@ -94,11 +100,11 @@ int wordl3(){
             printf("Coba ulangi lagi :)\n");
             continue;
         }
-        if(currentWord.TabWord[0] == random_word[0]){
-            if(currentWord.TabWord[1] == random_word[1]){
-                if(currentWord.TabWord[2] == random_word[2]){
-                    if(currentWord.TabWord[3] == random_word[3]){
-                        if(currentWord.TabWord[4] == random_word[4]){
+        if(currentWord.TabWord[0] == random_word[0] || currentWord.TabWord[0]+32 == random_word[0]){
+            if(currentWord.TabWord[1] == random_word[1] || currentWord.TabWord[1]+32 == random_word[1]){
+                if(currentWord.TabWord[2] == random_word[2] || currentWord.TabWord[2]+32 == random_word[2]){
+                    if(currentWord.TabWord[3] == random_word[3] || currentWord.TabWord[3]+32 == random_word[3]){
+                        if(currentWord.TabWord[4] == random_word[4] || currentWord.TabWord[4]+32 == random_word[4]){
                             printf("\nSelamat, Anda berhasil menebak kata tersebunyi!!!\n");
                             printf("%d rupiah telah ditambahkan ke akun anda.\n\n",prize);
                             break;
@@ -111,7 +117,7 @@ int wordl3(){
         boolean check_place[] = {false,false,false,false,false};
         for(int j=0;j<5;j++){
             for(int k=0;k<5;k++){
-                if(currentWord.TabWord[j] == random_word[k]){
+                if(currentWord.TabWord[j] == random_word[k] || currentWord.TabWord[j]+32 == random_word[k]){
                     check_char[j] = true;
                     if(j == k){
                         check_place[j]=true;
@@ -153,18 +159,20 @@ int wordl3(){
     return prize;
 }
 
-int work_challenge(){
+void work_challenge(int *money){
     while(1){
         printf("Daftar Challenge:\n");
         printf("1. Tebak Angka (biaya: 200)\n");
         printf("2. WORDL3 (biaya: 500)\n\n");
         printf("Masukkan challenge yang ingin dimainkan: ");
         STARTWORD("","");
-        if(currentWord.Length == 1 & currentWord.TabWord[0] == '1'){
-            return tebak_angka();
+        if(currentWord.Length == 1 && currentWord.TabWord[0] == '1'){
+            *money += tebak_angka() - 200;
+            break;
         }
-        else if(currentWord.Length == 1 & currentWord.TabWord[0] == '2'){
-            return wordl3();
+        else if(currentWord.Length == 1 && currentWord.TabWord[0] == '2'){
+            *money += wordl3() - 500;
+            break;
         }
         else{
             printf("\nTidak ada masukkan yang cocok. Silahkan coba kembali.\n\n");
@@ -172,7 +180,9 @@ int work_challenge(){
     }   
 }
 
-int main(){
-    work_challenge();
+/*int main(){
+    int money=1000;
+    work_challenge(&money);
+    printf("%d",money);
     return 0;
-}
+}*/
