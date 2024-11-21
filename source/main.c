@@ -1,16 +1,7 @@
 #include <stdio.h>
-//#include <stdlib.h>
-//#include <math.h>
-//#include <time.h>
-//#include "ADT/ArrayDinBarang/arraydinbarang.h"
-//#include "ADT/Barang/barang.h"
-//#include "ADT/List/list.h"
-//#include "ADT/Mesin_Karakter/mesinkarakter.h"
-//#include "ADT/Mesin_Kata/mesinkata.h"
-//#include "ADT/Queue/queue.h"
-//#include "ADT/QueueBarang/queue_barang.h"
-//#include "ADT/User/user.h"
-//#include "header/boolean.h"
+#include <stdlib.h>
+#include <math.h>
+#include <time.h>
 //#include "command/start.h"
 //#include "command/load.h"
 //#include "command/login.h"
@@ -18,15 +9,24 @@
 //#include "command/register.h"
 //#include "command/work.h"
 //#include "command/workchallenge.h"
-//#include "command/storelist.h"
-//#include "command/storerequest.h"
-//#include "command/storesupply.h"
-//#include "command/storeremove.h"
+#include "command/store.h"
 //include "command/help.h"
 //#include "command/save.h"
 //#include "command/quit.h"
 
 int main() {
-    printf("Hello Tubes\n");
-    return 0;
+    ArrayBarang q = CreateArrayBarang();
+    QueueBarang r; CreateQueueBarang(&r);
+    Barang b1 = createBarang("Platypus Laser", 1000);
+    Barang b2 = createBarang("Shrink", 2000);
+    Barang b3 = createBarang("Mickel Ray", 1000);
+    addBarang(&q, b1);
+    addBarang(&q, b2);
+    enqueue(&r, b3);
+    StoreList(&q);
+    StoreRequest(&q, &r);
+    StoreSupply(&q, &r);
+    StoreList(&q);
+    StoreRemove(&q);
+    StoreList(&q);
 }
