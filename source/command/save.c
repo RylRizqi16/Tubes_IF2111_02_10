@@ -1,7 +1,4 @@
-// Ini adalah prototipe untuk algoritmanya
-
 #include <stdio.h>
-#include <stdlib.h>
 #include "save.h"
 
 void save(char *filename, int itemCount, char items[][100], int prices[], int userCount, char users[][100], char passwords[][100], int balances[]) {
