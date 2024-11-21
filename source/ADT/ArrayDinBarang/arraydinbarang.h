@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "../../header/boolean.h"
 #include "../Barang/barang.h"
-#include "../Mesin_Kata/mesinkata.h"
 
 #define InitialSize 10
 
