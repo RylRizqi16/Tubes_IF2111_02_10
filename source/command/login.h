@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <string.h>
+#ifndef LOGIN_H
+#define LOGIN_H
+
+#include <stdio.h> 
 
 #define MAX_USERS 100
 #define MAX_LEN 100
@@ -18,6 +20,8 @@ typedef struct {
 UserList userList;
 int currentUserIndex = -1;
 
+int custom_strcmp(const char *str1, const char *str2);
+
 void loginUser(char username[MAX_LEN], char password[MAX_LEN]);
 /* Melakukan login pengguna ke sistem.
    I.S. : userList mungkin kosong atau berisi pengguna terdaftar, 
@@ -26,3 +30,5 @@ void loginUser(char username[MAX_LEN], char password[MAX_LEN]);
           currentUserIndex menunjuk ke indeks pengguna yang login
           Jika username atau password salah, currentUserIndex tetap -1
           Jika ada pengguna lain yang sedang login, meminta pengguna untuk logout terlebih dahulu */
+
+#endif 
