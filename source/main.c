@@ -24,9 +24,6 @@ int main() {
     addBarang(&q, b2);
     enqueue(&r, b3);
     StoreList(&q);
-    StoreRequest(&q, &r);
     StoreSupply(&q, &r);
-    StoreList(&q);
-    StoreRemove(&q);
     StoreList(&q);
 }
