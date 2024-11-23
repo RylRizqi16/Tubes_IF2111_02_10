@@ -1,6 +1,6 @@
 #include "logout.h"
 
-void logoutUser() {
+void logoutUser(char username[MAX_LEN], char password[MAX_LEN]) {
     if (currentUserIndex == -1) {
         printf("Anda belum login. Silakan LOGIN terlebih dahulu.\n");
         return;

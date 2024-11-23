@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 #define MAX_USERS 100
 #define MAX_LEN 100
