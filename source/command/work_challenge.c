@@ -10,7 +10,6 @@ int tebak_angka(){
     int random_number = rng() % 100;
     int i = 10, prize = 500;
     while(1){
-        int a=1;
         if(i == 0){
             printf("Maaf, kamu sepertinya sedang tidak beruntung.\n");
             break;
