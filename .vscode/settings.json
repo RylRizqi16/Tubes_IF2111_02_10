@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "mesinkata.h": "c"
+    "mesinkata.h": "c",
+    "queue_barang.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

@@ -13,16 +13,25 @@
 #include "command/save.h"
 #include "command/quit.h"
 #include "ADT/Mesin_Kata/mesinkata.h"
+#include "ADT/ArrayDinBarang/arraydinbarang.h"
+#include "ADT/ArrayStatikUser/arrayuser.h"
+#include "ADT/Barang/barang.h"
+#include "ADT/Mesin_Karakter/mesinkarakter.h"
+#include "ADT/Mesin_Kata/mesinkata.h"
+#include "ADT/QueueBarang/queue_barang.h"
+#include "ADT/User/user.h"
+
 
 int main() {
-    char input[MAX_INPUT_LENGTH];
+    char input[100];
     Word currentCommand;
-    int session = 0; 0: Welcome Menu, 1: Login Menu, 2: Main Menu
+    int session = 0;  //Welcome Menu, 1: Login Menu, 2: Main Menu
 
     printf("Selamat datang di PURRMART! Ketik HELP untuk bantuan.\n");
 
     while (1) {
         // Tampilkan menu berdasarkan sesi
+        ClearCurrentWord();
         switch (session) {
             case 0:
                 welcome_menu();
@@ -33,28 +42,23 @@ int main() {
             case 2:
                 main_menu();
                 break;
-            default:
-                printf("Kesalahan sesi. Mengakhiri program.\n");
-                exit(1);
         }
 
         // Membaca Input
         printf(">> ");
-        scanf("%s", &input);
-        STARTWORD(input, "r");
-        ADVWORD(); 
+        scanf("%s", input);
 
         if (EndWord) {
             printf("Tidak ada input yang diberikan.\n");
             continue;
         }
-        processCommand(currentWord.TabWord, &session);
+        processCommand(input, &session);
     }
     return 0;
 }
 
 // Fungsi untuk mengolah command yang diberikan
-void processCommand(char *command, int *session) {
+void processCommand(char command, int session) {
     if (BandingkanChar(command, "QUIT") == 1 || BandingkanChar(command, "quit") == 1) {
         char saveFile[50];
         printf("Masukkan nama file penyimpanan: ");
@@ -67,10 +71,14 @@ void processCommand(char *command, int *session) {
         } 
         else if (BandingkanChar(command, "LOAD") == 1 || BandingkanChar(command, "load") == 1) {
             char filename[50];
-            sscanf(command + 5, "%s", filename);
-            load(filename);
-            *session = 1;
-        } 
+            printf("Masukkan nama file yang ingin di-load: ");
+            scanf("%s", filename);
+
+            ArrayBarang items = CreateArrayBarang();
+            ArrayUser users = CreateUserArray();
+
+            load(filename, &itemCount, items, prices, &userCount, users, passwords, balances);
+        }
         else if (BandingkanChar(command, "HELP") == 1 || BandingkanChar(command, "help") == 1) {
             welcome_menu();
         } 
