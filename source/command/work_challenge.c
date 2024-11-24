@@ -19,20 +19,15 @@ int tebak_angka(){
             int guess=0;
             printf("\nTebak Angka: ");
             STARTWORD("","");
-            for(int j=0;j<currentWord.Length;j++){
-                if(currentWord.TabWord[j]<48 && currentWord.TabWord[j]>57){
-                    printf("Sepertinya ada kesalahan dalam masukkanmu.\n");
-                    printf("Silahkan ulangi masukkanmu.\n");
-                    a=0;
-                    break;
-                }
-                else{
-                    a=1;
-                }
-            }
             char b;
             WordToString(currentWord,&b);
             guess=CharToInt(&b);
+            if(guess == 0){
+                printf("Coba ulangi lagi :)\n");
+                continue;
+            }
+            i--;
+            prize-=50;
             if(guess>random_number){
                 printf("Tebakanmu lebih besar!\n");
             }
@@ -44,16 +39,12 @@ int tebak_angka(){
                 printf("%d rupiah telah ditambahkan ke akun anda.",prize);
                 break;
             }
-            if(a == 1){
-                i--;
-                prize-=50;
-            }
         }
     }
     return prize;
 }
 
-List int_random_word(int idx){
+list rwg(){
     char word[400][6] = {"abadi","abang","abjad","absah","absen","acara","acung","adisi","afiks","agama","agami","agung","ajaib","ajang","akbar","akhir",
                         "akmal","akrab","aksen","aksep","akses","aksis","aktif","aktor","alami","alarm","album","alias","alibi","altar","ambil","ambur",
                         "amino","amorf","ampas","ampuh","ampun","amsal","amuba","ancam","ancol","andai","andal","andil","aneka","angan","angga","angin",
@@ -79,21 +70,17 @@ List int_random_word(int idx){
                         "cerca","ceria","cerna","cetak","cetek","cewek","cibir","cicil","cicip","cicit","ciduk","cikal","cilik","cilok","cinta","cipok",
                         "cipta","citra","cobek","cocok","cocol","codet","colek","colok","comel","comot","copet","copot","corak","coret","cowok","cuaca",
                         "cubit","cucuk","cukai","cukup","cukur","culik","culun","cuman","cumbu","curah","dadar","dadih","dahak","dahan","dajal","dakar"};
-    List selected_word=MakeList();
+    list selected_word;
+    int idx = rng() % 400;
     for(int i=0;i<5;i++){
-        selected_word.A[i]=word[idx][i];
+        selected_word.word[i]=word[idx][i];
     }
     return selected_word;
 }
 
 int wordl3(){
     int prize = 1500;
-    int random_number = rng() % 400;
-    char random_word[6];
-    List selected_word = int_random_word(random_number);
-    for(int j=0;j<5;j++){
-        random_word[j] = (char)selected_word.A[j];
-    }
+    list random_word = rwg();
     printf("\n\nSelamat datang di WORDL3!!!\n");
     printf("Anda mempunyai 6 kesempatan untuk menebak kata tersebunyi berikut!\n\n");
     int i = 6;
@@ -109,24 +96,23 @@ int wordl3(){
             printf("\nSayang sekali, sepertinya anda belum berhasil ;)\n");
             printf("Kata yang benar adalah \"");
             for(int j=0;j<5;j++){
-                printf("%c",random_word[j]);
+                printf("%c",random_word.word[j]);
             }
             printf("\"\n\n");
             prize = 0;
             break;
         }
-        printf("\nMasukkan kata tebakan Anda: ");
+        printf("\nMasukkan kata tebakan Anda:\n");
+        printf("(Program akan meminta masukkan hingga menerima sebuah kata dengan 5 huruf)\n");
         STARTWORD("","");
-        if(currentWord.Length != 5){
-            printf("Tolong Masukkan sebuah kata berisi 5 huruf.\n");
-            printf("Coba ulangi lagi :)\n");
-            continue;
+        while(currentWord.Length != 5){
+            STARTWORD("","");
         }
-        if(currentWord.TabWord[0] == random_word[0] || currentWord.TabWord[0]+32 == random_word[0]){
-            if(currentWord.TabWord[1] == random_word[1] || currentWord.TabWord[1]+32 == random_word[1]){
-                if(currentWord.TabWord[2] == random_word[2] || currentWord.TabWord[2]+32 == random_word[2]){
-                    if(currentWord.TabWord[3] == random_word[3] || currentWord.TabWord[3]+32 == random_word[3]){
-                        if(currentWord.TabWord[4] == random_word[4] || currentWord.TabWord[4]+32 == random_word[4]){
+        if(currentWord.TabWord[0] == random_word.word[0] || currentWord.TabWord[0]+32 == random_word.word[0]){
+            if(currentWord.TabWord[1] == random_word.word[1] || currentWord.TabWord[1]+32 == random_word.word[1]){
+                if(currentWord.TabWord[2] == random_word.word[2] || currentWord.TabWord[2]+32 == random_word.word[2]){
+                    if(currentWord.TabWord[3] == random_word.word[3] || currentWord.TabWord[3]+32 == random_word.word[3]){
+                        if(currentWord.TabWord[4] == random_word.word[4] || currentWord.TabWord[4]+32 == random_word.word[4]){
                             printf("\nSelamat, Anda berhasil menebak kata tersebunyi!!!\n");
                             printf("%d rupiah telah ditambahkan ke akun anda.\n\n",prize);
                             break;
@@ -139,7 +125,7 @@ int wordl3(){
         boolean check_place[] = {0,0,0,0,0};
         for(int j=0;j<5;j++){
             for(int k=0;k<5;k++){
-                if(currentWord.TabWord[j] == random_word[k] || currentWord.TabWord[j]+32 == random_word[k]){
+                if(currentWord.TabWord[j] == random_word.word[k] || currentWord.TabWord[j]+32 == random_word.word[k]){
                     check_char[j] = true;
                     if(j == k){
                         check_place[j]=true;
@@ -189,9 +175,9 @@ int quantum_wordl3(){
             break;
         }
         int random_number = rng() % 400;
-        List selected_word = int_random_word(random_number);
+        list selected_word = rwg();
         for(int j=0;j<5;j++){
-            random_word[i-1][j] = (char)selected_word.A[j];
+            random_word[i-1][j] = (char)selected_word.word[j];
         }
         if(random_word[i-1][0] == random_word[i][0]){
             if(random_word[i-1][1] == random_word[i][1]){
@@ -252,21 +238,18 @@ int quantum_wordl3(){
             }
         }
         printf("\nMasukkan kata-kata tebakan Anda:\n");
+        printf("(Program akan meminta masukkan hingga menerima sebuah kata dengan 5 huruf)\n");
         char answer[4][6];
         for(int j=0;j<4;j++){
             if(!right[j]){
-                while(1){
-                    printf("%d. ",j+1);
+                printf("%d. ",j+1);
+                while(currentWord.Length != 5){
                     STARTWORD("","");
-                    if(currentWord.Length == 5){
-                        for(int k=0;k<5;k++){
-                            answer[j][k] = currentWord.TabWord[k];
-                        }
-                        break;
-                    }
-                    printf("\nTolong Masukkan sebuah kata berisi 5 huruf.\n");
-                    printf("Coba ulangi lagi :)\n");
                 }
+                for(int k=0;k<5;k++){
+                    answer[j][k] = currentWord.TabWord[k];
+                }
+                currentWord.Length = 0;
             }
         }
         for(int j=0;j<4;j++){
