@@ -16,7 +16,7 @@ Job get_job(int job_id) {
       break;
     case CIKAPUNDUNGINATOR_CARETAKER:
       job.job_id = CIKAPUNDUNGINATOR_CARETAKER;
-      job.salary = CIKAP UNDUNGINATOR_CARETAKER_SALARY;
+      job.salary = CIKAPUNDUNGINATOR_CARETAKER_SALARY;
       job.duration = CIKAPUNDUNGINATOR_CARETAKER_DURATION;
       break;
     case MEWING_SPECIALIST:
@@ -36,4 +36,21 @@ Job get_job(int job_id) {
       break;
   }
   return job;
+}
+
+void delay(int sec){
+  int milisec = 1000 * sec;
+  clock_t start = clock();
+  while(clock() < start + milisec ){
+    ;
+  }
+}
+
+void start_job(int duration, int salary){
+  int i;
+  printf("Anda sedang bekerja harap tunggu.");
+  for(i = 0; i < duration; i++;){
+    delay(1);
+  }
+  printf("Pekerjaan selesai, +%d rupiah telah ditambahkan ke akun Anda.", salary);
 }

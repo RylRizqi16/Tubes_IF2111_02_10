@@ -1,3 +1,4 @@
+#include <time.h>
 #ifndef WORK_H
 #define WORK_H
 
@@ -26,5 +27,9 @@ typedef struct {
 } Job;
 
 Job get_job(int job_id);
+
+void delay(int sec);
+
+void start_job(int duration, int salary);
 
 #endif
