@@ -2,9 +2,10 @@
 #define LOGIN_H
 
 #include <stdio.h> 
+#include "../header/boolean.h"
 
-#define MAX_USERS 100
 #define MAX_LEN 100
+#define EOP EOF
 
 typedef struct {
     char username[MAX_LEN];
@@ -12,17 +13,10 @@ typedef struct {
     int money;
 } User;
 
-typedef struct {
-    User users[MAX_USERS];
-    int count;
-} UserList;
+extern boolean login;
+extern char username[MAX_LEN];
 
-UserList userList;
-int currentUserIndex = -1;
-
-int custom_strcmp(const char *str1, const char *str2);
-
-void loginUser(char username[MAX_LEN], char password[MAX_LEN]);
+void loginUser();
 /* Melakukan login pengguna ke sistem.
    I.S. : userList mungkin kosong atau berisi pengguna terdaftar, 
           currentUserIndex bernilai -1 jika tidak ada pengguna yang login

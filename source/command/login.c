@@ -1,33 +1,69 @@
 #include "login.h"
+#include "../ADT/Mesin_Kata/mesinkata.h"
+#include "../ADT/Mesin_Karakter/mesinkarakter.h"
 
-int custom_strcmp(const char *str1, const char *str2) {
-    while (*str1 && (*str1 == *str2)) {
-        str1++;
-        str2++;
-    }
-    return *(unsigned char *)str1 - *(unsigned char *)str2;
-}
+boolean login;
+char username[MAX_LEN];
 
-// Masuk sebagai pengguna yang telah terdaftar
-void loginUser(char username[MAX_LEN], char password[MAX_LEN]) {
-    if (currentUserIndex != -1) {
-        printf("Anda masih tercatat sebagai %s. Silakan LOGOUT terlebih dahulu.\n", userList.users[currentUserIndex].username);
-        return;
-    }
-    
-    printf("Username: ");
-    scanf("%s", username);
-    printf("Password: ");
-    scanf("%s", password);
+void loginUser() {
+    char inputUsername[MAX_LEN];
+    char inputPassword[MAX_LEN];
+    boolean validInput = false;
+    FILE *file;
 
-// Cari pengguna
-    for (int i = 0; i < userList.count; i++) {
-        if (custom_strcmp(userList.users[i].username, username) == 0 &&
-            custom_strcmp(userList.users[i].password, password) == 0) {
-            currentUserIndex = i;
-            printf("Anda telah login ke PURRMART sebagai %s.\n", username);
-            return;
+    while (!validInput) {
+        printf("Username: "); // Input username
+        STARTWORD(stdin, "word");
+        int i = 0;
+        while (currentWord.TabWord[i] != '\0'){
+            inputUsername[i] = currentWord.TabWord[i];
+            i++;
+        }
+        inputUsername[i] = '\0';
+
+        printf("Password: "); // Input username
+        STARTWORD(stdin, "word");
+        int j = 0;
+        while (currentWord.TabWord[j] != '\0') {
+            inputPassword[j] = currentWord.TabWord[j];
+            j++;
+        }
+        inputPassword[j] = '\0';
+
+        // Membuka file untuk validasi
+        file = fopen("users.txt", "r");
+        if (file == NULL) {
+            printf("Terjadi kesalahan saat membuka file.\n");
+            return; // Keluar jika file gagal dibuka
+        }
+
+        // Menyocokan dengan data user yang sudah terdaftar
+        boolean registeredUser = false;
+        char fileUsername[MAX_LEN], filePassword[MAX_LEN];
+
+        // Membaca file untuk menyocokan username dan password
+        while (fscanf(file, "%s %s", fileUsername, filePassword) != EOP) {
+            if (isEqual(inputUsername, fileUsername) && isEqual(inputPassword, filePassword)) {
+                registeredUser = true;
+                break;
+            }
+        }
+        fclose(file);
+
+        // Jika cocok dengan daftar user
+        if (registeredUser) {
+            printf("Login berhasil! Selamat datang, %s.\n", inputUsername);
+            // Menyalin inputUsername ke variabel global username
+            int i = 0;
+            while (inputUsername[i] != '\0') {
+                username[i] = inputUsername[i];
+                i++;
+            }
+            username[i] = '\0';
+            login = true;
+            validInput = true;
+        } else {
+            printf("Username atau password salah. Silakan coba lagi.\n");
         }
     }
-    printf("Username atau password salah.\n");
 }
