@@ -1,11 +1,35 @@
 #include "logout.h"
 
-void logoutUser(char username[MAX_LEN], char password[MAX_LEN]) {
-    if (currentUserIndex == -1) {
-        printf("Anda belum login. Silakan LOGIN terlebih dahulu.\n");
-        return;
+boolean loginUser;
+
+void logoutUser() {
+    char username[MAX_LEN];
+    char password[MAX_LEN];
+    int money;
+
+    if (loginUser) {
+        for (int i = 0; username[i] != '\0'; i++) {
+            username[i] = '\0';
+        }
+        for (int i = 0; password[i] != '\0'; i++) { 
+            password[i] = '\0'; 
+        }
+        money = 0; 
+        loginUser = false;
     }
-    printf("%s telah logout dari sistem PURRMART. Silakan REGISTER/LOGIN kembali untuk melanjutkan.\n",
-           userList.users[currentUserIndex].username);
-    currentUserIndex = -1;
+    else {
+        printf("Kamu belum melakukan login, silakan login terlebih dahulu!"); 
+        loginUser = true;
+    }
 }
+
+//Testing 
+//int main() {
+//    printf("=== Testing Logout User ===\n");
+
+//    logoutUser();
+
+//    printf("=== Testing Completed ===\n");
+
+//    return 0;
+//}

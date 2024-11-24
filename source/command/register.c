@@ -1,6 +1,30 @@
 #include "register.h"
 #include "../ADT/Mesin_Kata/mesinkata.h"
-#include "../ADT/Mesin_Karakter/mesinkarakter.h"
+#include "../ADT/Mesin_Karakter/mesinkarakter.c"
+
+void readInput(char *dest, int maxLen) {
+    START("", ""); 
+    int i = 0;
+
+    while (i < maxLen - 1 && !IsEOP() && GetCC() != '\n') { 
+        dest[i] = GetCC(); // Simpan karakter ke dalam array tujuan
+        i++;
+        ADV(); // Lanjutkan ke karakter berikutnya
+    }
+
+    dest[i] = '\0'; // Akhiri string dengan null character
+}
+
+boolean isEqual(char *str1, char *str2) {
+    int i = 0;
+    while (str1[i] != '\0' && str2[i] != '\0') {
+        if (str1[i] != str2[i]) {
+            return false;
+        }
+        i++;
+    }
+    return str1[i] == '\0' && str2[i] == '\0';
+}
 
 void registerUser() {
     User user;
@@ -10,64 +34,49 @@ void registerUser() {
     FILE *file;
 
     while (!validInput) {
-        printf("Username: "); // Input username
-        STARTWORD(stdin, "word");
-        int i = 0;
-        while (currentWord.TabWord[i] != '\0'){
-            username[i] = currentWord.TabWord[i];
-            i++;
-        }
-        username[i] = '\0';
+        printf("Username: ");
+        readInput(username, MAX_LEN);
 
         // Cek apakah username mengandung spasi
         boolean validUsername = true;
         for (int k = 0; username[k] != '\0'; k++) {
-                if (username[k] == ' ') {
-                    printf("Username HANYA bisa satu kata!\n");
-                    validUsername = false;
-                    break;
-                }
-            }
-
-        if (!validUsername) {
-            continue;  // Minta input ulang jika username tidak valid
-            }
-
-        // Cek apakah username sudah digunakan
-        file = fopen("users.txt", "r"); // Membuka file untuk membaca data pengguna
-        if (file == NULL) {
-            printf("Terjadi kesalahan saat membuka file.\n");
-            return; 
-        }
-
-        boolean usernameTaken = false; 
-        char fileUsername[MAX_LEN], filePassword[MAX_LEN];
-        
-        while (fscanf(file, "%s %s", fileUsername, filePassword) != EOF) {
-            if (isEqual(username, fileUsername)) {
-                usernameTaken = true; // Kalau ditemukan username yang sama
+            if (username[k] == ' ') {
+                printf("Username HANYA bisa satu kata!\n");
+                validUsername = false;
                 break;
             }
         }
-        fclose(file); // Tutup file setelah selesai membaca
+        if (!validUsername) continue;
+
+        // Cek apakah username sudah digunakan
+        file = fopen("users.txt", "r");
+        if (file == NULL) {
+            printf("Terjadi kesalahan saat membuka file.\n");
+            return;
+        }
+
+        boolean usernameTaken = false;
+        char fileUsername[MAX_LEN];
+        while (fscanf(file, "%s", fileUsername) != EOF) {
+            if (isEqual(username, fileUsername)) {
+                usernameTaken = true;
+                break;
+            }
+        }
+        fclose(file);
 
         if (usernameTaken) {
             printf("Username sudah dipakai, buat username lain!\n");
-            continue;  // Minta input ulang jika username sudah dipakai
-            }
-
-    validInput = true;    
-}  
-
-    while (!validInput) {
-        printf("Password: "); // Input password 
-        STARTWORD(stdin, "word");
-        int j = 0;
-        while (currentWord.TabWord[j] != '\0') {
-            password[j] = currentWord.TabWord[j];
-            j++;
+            continue;
         }
-        password[j] = '\0';
+
+        validInput = true;
+    }
+
+    validInput = false; // Reset untuk validasi password
+    while (!validInput) {
+        printf("Password: ");
+        readInput(password, MAX_LEN);
 
         // Cek apakah password mengandung spasi
         boolean validPassword = true;
@@ -78,22 +87,29 @@ void registerUser() {
                 break;
             }
         }
-    
-        if (!validPassword) {
-            continue;  // Minta input ulang jika password tidak valid
-            }
+        if (!validPassword) continue;
 
         validInput = true;
 
-        // Menyimpan informasi user baru ke file "users.txt"
-        file = fopen("users.txt", "a"); // Membuka file untuk menambahkan data (mode append)
+        // Simpan user baru ke file
+        file = fopen("users.txt", "a");
         if (file != NULL) {
-            fprintf(file, "%s %s\n", username, password); 
-            fclose(file); 
+            fprintf(file, "%s %s\n", username, password);
+            fclose(file);
             printf("Akun dengan username %s telah berhasil dibuat. Silakan LOGIN untuk melanjutkan.\n", username);
-        } 
-        else {
+        } else {
             printf("Terjadi kesalahan saat menyimpan data.\n");
         }
     }
 }
+
+//Testing 
+//int main() {
+//    printf("=== Testing Register User ===\n");
+
+//    registerUser();
+
+//    printf("=== Testing Completed ===\n");
+
+//    return 0;
+//}

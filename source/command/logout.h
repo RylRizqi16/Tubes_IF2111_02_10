@@ -1,6 +1,9 @@
-#include <stdio.h>
+#ifndef LOGOUT_H
+#define LOGOUT_H
 
-#define MAX_USERS 100
+#include <stdio.h>
+#include "../header/boolean.h"
+
 #define MAX_LEN 100
 
 typedef struct {
@@ -9,12 +12,7 @@ typedef struct {
     int money;
 } User;
 
-typedef struct {
-    User users[MAX_USERS];
-    int count;
-} UserList;
+extern boolean loginUser;
+void logoutUser();
 
-UserList userList;
-int currentUserIndex = -1;
-
-void logoutUser(char username[MAX_LEN], char password[MAX_LEN]);
+#endif

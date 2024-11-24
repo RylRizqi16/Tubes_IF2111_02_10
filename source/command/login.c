@@ -1,9 +1,33 @@
 #include "login.h"
 #include "../ADT/Mesin_Kata/mesinkata.h"
-#include "../ADT/Mesin_Karakter/mesinkarakter.h"
+#include "../ADT/Mesin_Karakter/mesinkarakter.c"
 
 boolean login;
 char username[MAX_LEN];
+
+void readInput(char *dest, int maxLen) {
+    START("", ""); 
+    int i = 0;
+
+    while (i < maxLen - 1 && !IsEOP() && GetCC() != '\n') { 
+        dest[i] = GetCC(); // Simpan karakter ke dalam array tujuan
+        i++;
+        ADV(); // Lanjutkan ke karakter berikutnya
+    }
+
+    dest[i] = '\0'; // Akhiri string dengan null character
+}
+
+boolean isEqual(char *str1, char *str2) {
+    int i = 0;
+    while (str1[i] != '\0' && str2[i] != '\0') {
+        if (str1[i] != str2[i]) {
+            return false;
+        }
+        i++;
+    }
+    return str1[i] == '\0' && str2[i] == '\0';
+}
 
 void loginUser() {
     char inputUsername[MAX_LEN];
@@ -12,23 +36,11 @@ void loginUser() {
     FILE *file;
 
     while (!validInput) {
-        printf("Username: "); // Input username
-        STARTWORD(stdin, "word");
-        int i = 0;
-        while (currentWord.TabWord[i] != '\0'){
-            inputUsername[i] = currentWord.TabWord[i];
-            i++;
-        }
-        inputUsername[i] = '\0';
+        printf("Username: ");
+        readInput(inputUsername, MAX_LEN);
 
         printf("Password: "); // Input username
-        STARTWORD(stdin, "word");
-        int j = 0;
-        while (currentWord.TabWord[j] != '\0') {
-            inputPassword[j] = currentWord.TabWord[j];
-            j++;
-        }
-        inputPassword[j] = '\0';
+        readInput(inputPassword, MAX_LEN);
 
         // Membuka file untuk validasi
         file = fopen("users.txt", "r");
@@ -67,3 +79,14 @@ void loginUser() {
         }
     }
 }
+
+//Testing 
+//int main() {
+//    printf("=== Testing Register User ===\n");
+
+//    loginUser();
+
+//    printf("=== Testing Completed ===\n");
+
+//    return 0;
+//}
