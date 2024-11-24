@@ -48,8 +48,8 @@ void delay(int sec){
 
 void start_job(int duration, int salary){
   int i;
-  printf("Anda sedang bekerja harap tunggu.");
-  for(i = 0; i < duration; i++;){
+  printf("Anda sedang bekerja harap tunggu.\n");
+  for(i = 0; i < duration; i++){
     delay(1);
   }
   printf("Pekerjaan selesai, +%d rupiah telah ditambahkan ke akun Anda.", salary);
