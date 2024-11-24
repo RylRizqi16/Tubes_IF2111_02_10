@@ -10,20 +10,11 @@
 #define IdxMin 1
 #define IdxUndef -999
 
-typedef struct {
-  char name[MAX_LEN];
-  char password[MAX_LEN];
-  int money;
-} User;
-
 typedef struct
 {
     User user[IdxMax - IdxMin + 1];
     int Neff;
 } ArrayUser;
-
-
-
 
 void CreateArrayUser(ArrayUser *AU);
 

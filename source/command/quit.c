@@ -2,16 +2,24 @@
 #include <stdlib.h>
 #include "quit.h"
 
-void quit(char *filename, int itemCount, char items[][100], int prices[], int userCount, char users[][100], char passwords[][100], int balances[]) {
-    printf("Apakah kamu ingin menyimpan data sesi sekarang (Y/N)? ");
-    START(NULL, "");
-    ADV();
-    char response = GetCC();
+void quit(char *filename, ArrayBarang *barangToko, ArrayUser *users){
+    char response;
 
-    if (response == 'Y' || response == 'y') {
-        save(filename, itemCount, items, prices, userCount, users, passwords, balances);
-    }
+    do {
+        printf("Apakah kamu ingin menyimpan data sesi sekarang (Y/N)? ");
+        START(NULL, "");
+        ADV();
+        response = GetCC();
 
-    printf("Kamu keluar dari PURRMART. Dadah ^_^/\n");
-    exit(0);
+        if (response == 'Y' || response == 'y') {
+            save(filename, barangToko, users); // Simpan data
+            printf("Data berhasil disimpan. Kamu keluar dari PURRMART. Dadah ^_^/\n");
+            exit(0);
+        } else if (response == 'N' || response == 'n') {
+            printf("Kamu keluar dari PURRMART tanpa menyimpan. Dadah ^_^/\n");
+            exit(0);
+        } else {
+            printf("Input tidak valid. Silakan masukkan Y atau N\n");
+        }
+    } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 }

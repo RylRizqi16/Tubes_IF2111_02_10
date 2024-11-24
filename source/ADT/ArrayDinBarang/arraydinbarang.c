@@ -12,6 +12,10 @@ void addBarang(ArrayBarang *array, Barang b) {
     if (array->Neff >= array->Capacity) {
         array->Capacity *= 2;
         Barang *newData = (Barang *)realloc(array->data, array->Capacity * sizeof(Barang));
+        if (newData == NULL) {
+        printf("Gagal mengalokasikan memori tambahan untuk ArrayBarang.\n");
+        return;
+        }
         array->data = newData;
     }
     array->data[array->Neff] = b;
