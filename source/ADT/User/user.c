@@ -1,5 +1,6 @@
 #include "user.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 User createUser(char *nama, char *pw, int uang){
     User u;
@@ -10,9 +11,10 @@ User createUser(char *nama, char *pw, int uang){
     }
     u.name[i] = '\0';
 
-    for (j = 0; i < MAX_LEN && pw[j] != '\0'; i++) {
-        u.password[i] = pw[i];
+    for (j = 0; j < MAX_LEN && pw[j] != '\0'; j++) {
+        u.password[j] = pw[j];
     }
+    u.password[j] = '\0';
     u.money = uang;
     return u;
 }
