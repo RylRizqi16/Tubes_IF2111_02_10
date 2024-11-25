@@ -36,6 +36,7 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             printf("Masukkan nama file yang ingin di-load: ");
             scanf("%s", filename);
             load(filename, items, users);
+            *session = 1;
         }
         else if (BandingkanChar(command, "HELP") == 1 || BandingkanChar(command, "help") == 1) {
             welcome_menu();
@@ -50,6 +51,9 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
         }
         else if (BandingkanChar(command, "LOGIN") == 1 || BandingkanChar(command, "login") == 1) {
             login(users, PS);
+            if (isUserLoggedIn(*PS)) {
+                *session = 2;
+            }
         } 
         else if (BandingkanChar(command, "HELP") == 1 || BandingkanChar(command, "help") == 1) {
             login_menu();
