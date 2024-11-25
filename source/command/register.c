@@ -1,115 +1,63 @@
 #include "register.h"
-#include "../ADT/Mesin_Kata/mesinkata.h"
-#include "../ADT/Mesin_Karakter/mesinkarakter.c"
+#include <stdio.h>
 
-void readInput(char *dest, int maxLen) {
-    START("", ""); 
-    int i = 0;
-
-    while (i < maxLen - 1 && !IsEOP() && GetCC() != '\n') { 
-        dest[i] = GetCC(); // Simpan karakter ke dalam array tujuan
-        i++;
-        ADV(); // Lanjutkan ke karakter berikutnya
+void register_user(ArrayUser *users) {
+    if ((*users).Neff >= IdxMax) {
+        printf("Sistem tidak dapat menampung user baru.\n");
+        return;
     }
 
-    dest[i] = '\0'; // Akhiri string dengan null character
-}
-
-boolean isEqual(char *str1, char *str2) {
-    int i = 0;
-    while (str1[i] != '\0' && str2[i] != '\0') {
-        if (str1[i] != str2[i]) {
-            return false;
-        }
-        i++;
-    }
-    return str1[i] == '\0' && str2[i] == '\0';
-}
-
-void registerUser() {
-    User user;
     char username[MAX_LEN];
     char password[MAX_LEN];
-    boolean validInput = false;
-    FILE *file;
-
-    while (!validInput) {
-        printf("Username: ");
-        readInput(username, MAX_LEN);
-
-        // Cek apakah username mengandung spasi
-        boolean validUsername = true;
-        for (int k = 0; username[k] != '\0'; k++) {
-            if (username[k] == ' ') {
+    boolean valid;
+    boolean spasi;
+    int i=0;
+    while (!valid){
+        valid = false;
+        spasi = false;
+        printf("Masukkan username: ");
+        STARTSENTENCE("","");
+        for (i = 0; i < currentWord.Length; i++) {
+            username[i] = currentWord.TabWord[i];
+            if (username[i] == ' ') {
                 printf("Username HANYA bisa satu kata!\n");
-                validUsername = false;
-                break;
+                spasi = true;
             }
         }
-        if (!validUsername) continue;
-
-        // Cek apakah username sudah digunakan
-        file = fopen("users.txt", "r");
-        if (file == NULL) {
-            printf("Terjadi kesalahan saat membuka file.\n");
-            return;
-        }
-
-        boolean usernameTaken = false;
-        char fileUsername[MAX_LEN];
-        while (fscanf(file, "%s", fileUsername) != EOF) {
-            if (isEqual(username, fileUsername)) {
-                usernameTaken = true;
-                break;
+        username[i] = '\0';
+        if (!spasi){
+            if (currentWord.Length >= MAX_LEN) {
+                printf("Username terlalu panjang!\n");
+            } else if (Apakah_Username_Ada(*users, username)) {
+                printf("Username sudah digunakan!\n");
+            } else {
+                valid = true;
             }
         }
-        fclose(file);
-
-        if (usernameTaken) {
-            printf("Username sudah dipakai, buat username lain!\n");
-            continue;
-        }
-
-        validInput = true;
     }
-
-    validInput = false; // Reset untuk validasi password
-    while (!validInput) {
-        printf("Password: ");
-        readInput(password, MAX_LEN);
-
-        // Cek apakah password mengandung spasi
-        boolean validPassword = true;
-        for (int k = 0; password[k] != '\0'; k++) {
-            if (password[k] == ' ') {
+    valid = false;
+    while (!valid){
+        spasi = false;
+        printf("Masukkan password: ");
+        STARTSENTENCE("","");
+        for (i = 0; i < currentWord.Length; i++) {
+            password[i] = currentWord.TabWord[i];
+            if (password[i] == ' ') {
                 printf("Password HANYA bisa satu kata!\n");
-                validPassword = false;
-                break;
+                spasi = true;
             }
         }
-        if (!validPassword) continue;
-
-        validInput = true;
-
-        // Simpan user baru ke file
-        file = fopen("users.txt", "a");
-        if (file != NULL) {
-            fprintf(file, "%s %s\n", username, password);
-            fclose(file);
-            printf("Akun dengan username %s telah berhasil dibuat. Silakan LOGIN untuk melanjutkan.\n", username);
-        } else {
-            printf("Terjadi kesalahan saat menyimpan data.\n");
+        password[i] = '\0';
+        if (!spasi){
+            if (currentWord.Length >= MAX_LEN) {
+                printf("Password terlalu panjang!\n");
+            } else {
+                valid = true;
+            }
         }
     }
+    (*users).Neff++;
+    User newUser = createUser(username,password, 0);
+    (*users).user[(*users).Neff] = newUser;
+    printf("Registrasi berhasil!\n");
 }
-
-//Testing 
-//int main() {
-//    printf("=== Testing Register User ===\n");
-
-//    registerUser();
-
-//    printf("=== Testing Completed ===\n");
-
-//    return 0;
-//}
