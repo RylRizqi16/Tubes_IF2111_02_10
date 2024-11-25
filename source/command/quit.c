@@ -15,3 +15,4 @@ void quit(char *filename, ArrayBarang *barangToko, ArrayUser *users){
             printf("Kamu keluar dari PURRMART tanpa menyimpan. Dadah ^_^/\n");
             exit(0);
     }
+}
