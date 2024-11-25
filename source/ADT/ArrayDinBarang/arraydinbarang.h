@@ -4,6 +4,8 @@
 #include "../Barang/barang.h"
 #include "../Mesin_Kata/mesinkata.h"
 
+#ifndef ARRAYDINBARANG_H
+#define ARRAYDINBARANG_H
 #define InitialSize 10
 
 typedef struct {
@@ -23,3 +25,4 @@ void freeArrayBarang(ArrayBarang *arr);
 boolean BarangDiToko(ArrayBarang *B, char *nama);
 
 int IndeksBarangDiToko(ArrayBarang *B, char *nama);
+#endif
