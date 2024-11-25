@@ -90,11 +90,11 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             work_challenge(&PS -> money);
         } else if (BandingkanChar(command, "STORELIST") == 1 || BandingkanChar(command, "storelist") == 1) {
             StoreList(items);
-        } else if (BandingkanChar(command, "STORE REQUEST") == 1 || BandingkanChar(command, "store request") == 1) {
+        } else if (BandingkanChar(command, "STOREREQUEST") == 1 || BandingkanChar(command, "storerequest") == 1) {
             StoreRequest(items, request);
-        } else if (BandingkanChar(command, "STORE SUPPLY") == 1 || BandingkanChar(command, "store supply") == 1) {
+        } else if (BandingkanChar(command, "STORESUPPLY") == 1 || BandingkanChar(command, "storesupply") == 1) {
             StoreSupply(items, request);
-        } else if (BandingkanChar(command, "STORE REMOVE") == 1 || BandingkanChar(command, "store remove") == 1) {
+        } else if (BandingkanChar(command, "STOREREMOVE") == 1 || BandingkanChar(command, "storeremove") == 1) {
             StoreRemove(items);
         } else if (BandingkanChar(command, "LOGOUT") == 1 || BandingkanChar(command, "logout") == 1) {
             logout(PS);
@@ -141,7 +141,7 @@ int main() {
 
         // Membaca Input
         printf(">> ");
-        STARTWORD("", "");
+        STARTSENTENCE("", "");
         WordToString(currentWord, input);
         processCommand(input, &session, &items, &users, &request, &PS);
     }
