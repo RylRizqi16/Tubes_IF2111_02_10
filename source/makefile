@@ -19,7 +19,7 @@ SRC = main.c \
 	ADT/Barang/barang.c \
 	ADT/Mesin_Karakter/mesinkarakter.c \
 	ADT/QueueBarang/queue_barang.c \
-	ADT/User/user.c  # Removed the backslash here
+	ADT/User/user.c 
 
 OBJ = $(SRC:.c=.o)
 
