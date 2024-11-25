@@ -9,22 +9,9 @@ void ClearCurrentWord()
     currentWord.Length = 0;
 }
 
-// boolean IsEqual(Word str1, char *str2)
-// {
-//     int i = 0;
-//     boolean checker = (str1.Length == stringLength(str2));
-//     while (str1.TabWord[i] != '\0' && str2[i] != '\0' && checker)
-//     {
-//         if (str1.TabWord[i] != str2[i])
-//             checker = false;
-//         i++;
-//     }
-//     return checker;
-// }
-
 void ConcatWords(Word *str1, char separator, Word str2)
 {
-    int i = str1->Length, j; //temp = str1->Length;
+    int i = str1->Length, j;
     if (separator != '\0')
     {
         str1->TabWord[i] = separator;
@@ -79,7 +66,7 @@ void ADVWORD()
 void ADVSENTENCE()
 {
     IgnoreBlanks();
-    if (GetCC() == BLANK || GetCC() == MARK)
+    if (GetCC() == ENTER || GetCC() == MARK)
         EndWord = true;
     else
     {
@@ -97,6 +84,7 @@ void CopySentence() {
         i++;
     }
     currentWord.Length = i;
+    currentWord.TabWord[i] = '\0';
 }
 
 void CopyWord()

@@ -11,17 +11,14 @@
 
 typedef struct
 {
-   char TabWord[NMax]; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
+   char TabWord[NMax];
    int Length;
 } Word;
 
-/* State Mesin Kata */
 extern boolean EndWord;
 extern Word currentWord;
 
 extern void ClearCurrentWord();
-
-// boolean IsEqual(Word str1, char *str2);
 
 extern void ConcatWords(Word *str1, char separator, Word str2);
 

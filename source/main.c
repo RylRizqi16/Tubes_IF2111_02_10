@@ -137,7 +137,8 @@ int main() {
 
         // Membaca Input
         printf(">> ");
-        scanf("%s", input);
+        STARTWORD("", "");
+        WordToString(currentWord, input);
         processCommand(input, &session, &items, &users, &request, &PS);
     }
     return 0;
