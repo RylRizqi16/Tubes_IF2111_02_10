@@ -26,3 +26,4 @@ PURRMART adalah sebuah aplikasi yang dapat mensimulasikan aktivitas beli barang 
 3. Ketik "make" pada terminal
 4. jalankan program dengan ketik "./PURRMART" atau dengan klik PURRMART file
 
+note : savefile terrsimpan di folder source bukan di source/save
