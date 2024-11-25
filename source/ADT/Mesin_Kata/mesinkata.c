@@ -24,7 +24,7 @@ void ClearCurrentWord()
 
 void ConcatWords(Word *str1, char separator, Word str2)
 {
-    int i = str1->Length, j, temp = str1->Length;
+    int i = str1->Length, j; //temp = str1->Length;
     if (separator != '\0')
     {
         str1->TabWord[i] = separator;

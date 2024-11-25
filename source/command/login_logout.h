@@ -7,6 +7,7 @@
 typedef struct {
     boolean isLoggedIn;
     int currentUserIdx;  // Menyimpan indeks user yang sedang login
+    int money;
 } PenggunaSekarang;
 
 void createPenggunaSekarang(PenggunaSekarang *PS);

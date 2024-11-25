@@ -1,4 +1,5 @@
 #include "help.h"
+#include "stdio.h"
 
 void welcome_menu(){
     printf("\n=====================================[ Welcome Menu Help PURRMART ]===================================\n");

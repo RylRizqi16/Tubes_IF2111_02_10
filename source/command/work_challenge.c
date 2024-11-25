@@ -173,7 +173,6 @@ int quantum_wordl3(){
         if(i == 0){
             break;
         }
-        int random_number = rng() % 400;
         list selected_word = rwg();
         for(int j=0;j<5;j++){
             random_word[i-1][j] = (char)selected_word.word[j];

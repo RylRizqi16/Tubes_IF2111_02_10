@@ -2,20 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void createPenggunaSekarang(PenggunaSekarang *PS){
-    (*PS).isLoggedIn = false;
-    (*PS).currentUserIdx = -IdxUndef;
+void createPenggunaSekarang(PenggunaSekarang *PS) {
+    PS->isLoggedIn = false;
+    PS->currentUserIdx = -IdxUndef;
+    PS->money = 0;
 }
 
-void login(ArrayUser *users, PenggunaSekarang *PS){
+void login(ArrayUser *users, PenggunaSekarang *PS) {
     char username[MAX_LEN];
     char password[MAX_LEN];
     boolean valid = false;
     boolean spasi = false;
-    int i=0;
-    while (!valid){
+    int i = 0;
+
+    while (!valid) {
         printf("Masukkan username: ");
-        STARTSENTENCE("","");
+        STARTSENTENCE("", "");
         for (i = 0; i < currentWord.Length; i++) {
             username[i] = currentWord.TabWord[i];
             if (username[i] == ' ') {
@@ -23,13 +25,15 @@ void login(ArrayUser *users, PenggunaSekarang *PS){
             }
         }
         username[i] = '\0';
-        if (!spasi){
+
+        if (!spasi) {
             if (currentWord.Length >= MAX_LEN) {
                 printf("Username terlalu panjang!\n");
             }
         }
+
         printf("Masukkan password: ");
-        STARTSENTENCE("","");
+        STARTSENTENCE("", "");
         for (i = 0; i < currentWord.Length; i++) {
             password[i] = currentWord.TabWord[i];
             if (password[i] == ' ') {
@@ -37,22 +41,25 @@ void login(ArrayUser *users, PenggunaSekarang *PS){
             }
         }
         password[i] = '\0';
-        if (!spasi){
+
+        if (!spasi) {
             if (currentWord.Length >= MAX_LEN) {
                 printf("Password terlalu panjang!\n");
-                }
+            }
         }
+
         if (!Apakah_Password_Valid(users, username, password)) {
             printf("Username atau password salah!\n");
-        } else{
+        } else {
             valid = true;
         }
     }
+
     int userIdx;
     for (i = IdxMin; i <= users->Neff; i++) {
         int j = 0;
         boolean same = true;
-        
+
         while (users->user[i].name[j] != '\0' && username[j] != '\0') {
             if (users->user[i].name[j] != username[j]) {
                 same = false;
@@ -60,27 +67,30 @@ void login(ArrayUser *users, PenggunaSekarang *PS){
             }
             j++;
         }
-        
+
         if (same && users->user[i].name[j] == '\0' && username[j] == '\0') {
             userIdx = i;
             break;
         }
     }
 
-    (*PS).isLoggedIn = true;
-    (*PS).currentUserIdx = userIdx;
+    PS->isLoggedIn = true;
+    PS->currentUserIdx = userIdx;
+    PS->money = users->user[userIdx].money;
     printf("Login berhasil!\n");
     printf("Selamat datang, %s!\n", username);
+    printf("Saldo Anda saat ini: %d\n", PS->money);
 }
 
 void logout(PenggunaSekarang *PS) {
-    if (!(*PS).isLoggedIn) {
+    if (!PS->isLoggedIn) {
         printf("Anda belum login!\n");
         return;
     }
 
-    (*PS).isLoggedIn = false;
-    (*PS).currentUserIdx = IdxUndef;
+    PS->isLoggedIn = false;
+    PS->currentUserIdx = IdxUndef;
+    PS->money = 0;
     printf("Logout berhasil!\n");
 }
 
@@ -90,4 +100,8 @@ boolean isUserLoggedIn(PenggunaSekarang PS) {
 
 int getCurrentUserIdx(PenggunaSekarang PS) {
     return PS.currentUserIdx;
+}
+
+int getCurrentUserMoney(PenggunaSekarang PS) {
+    return PS.money;
 }
