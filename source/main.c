@@ -101,7 +101,7 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             *session = 1;
         } else if (BandingkanChar(command, "SAVE") == 1 || BandingkanChar(command, "save") == 1) {
             char filename[50];
-            sscanf(command + 5, "%s", filename);
+            scanf("%s", filename);
             save(filename,items, users);
         } else if (BandingkanChar(command, "HELP") == 1 || BandingkanChar(command, "help") == 1) {
             main_menu();
