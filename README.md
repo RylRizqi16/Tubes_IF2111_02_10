@@ -3,6 +3,14 @@ Kelompok 10 K02
 
 # Deskripsi 
 Buatlah sebuah aplikasi simulasi berbasis CLI (command-line interface). Sistem ini dibuat dalam bahasa C dengan menggunakan struktur data yang sudah kalian pelajari di mata kuliah ini. Kalian boleh menggunakan (atau memodifikasi) struktur data yang sudah kalian buat untuk praktikum pada tugas besar ini. Daftar ADT yang wajib digunakan dapat dilihat pada bagian Daftar ADT. Library yang boleh digunakan hanya stdio.h, stdlib.h, time.h, dan math.h.
+PURRMART adalah sebuah aplikasi yang dapat mensimulasikan aktivitas beli barang pada e-commerce. PURRMART memiliki beberapa fitur utama, yaitu:
+1. Menampilkan barang toko
+2. Meminta dan menyuplai barang baru ke toko
+3. Menyimpan dan membeli barang dalam keranjang
+4. Menampilkan barang yang sudah dibeli
+5. Membuat dan menghapus wishlist
+6. Bekerja untuk menghasilkan uang
+
 
 # Anggota Kelompok 
 1.Fhatika Adhalisman Ryanjani/18223062<br />
