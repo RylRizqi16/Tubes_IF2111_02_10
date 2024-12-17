@@ -111,27 +111,53 @@ void WishlistRemove(LinkedList *wishlist) {
     }
 }
 
-
-int main(){
-    ArrayBarang store = CreateArrayBarang();
-    Barang ayam = createBarang("ayam", 10000);
-    addBarang(&store, ayam);
-    Barang bebek = createBarang("bebek", 20000);
-    addBarang(&store, bebek);
-    Barang cacing = createBarang("cacing", 30000);
-    addBarang(&store, cacing);
-    Barang domba = createBarang("domba", 40000);
-    addBarang(&store, domba);
-    Barang elang = createBarang("elang", 50000);
-    addBarang(&store, elang);
-    LinkedList wishlist;
-    CreateEmpty(&wishlist);
-    WishlistAdd(&store, &wishlist);
-    WishlistAdd(&store, &wishlist);
-    WishlistAdd(&store, &wishlist);
-    WishlistAdd(&store, &wishlist);
-    PrintInfo(wishlist);
-    WishlistRemoveIndex(&wishlist, 5);
-    PrintInfo(wishlist);
-    return 0;
+void WishlistClear (LinkedList *wishlist) {
+    CreateEmpty(wishlist);
+    printf("Wishlist telah dikosongkan.\n");
 }
+
+void WishlistShow(LinkedList *wishlist) {
+    if (IsEmpty(*wishlist)) {
+        printf("Wishlist kamu kosong, tambahin dong!\n");
+        return;
+    } else {
+        Node *P = *wishlist;
+        int i = 1;
+        printf("Berikut adalah isi wishlist-mu:\n");
+        while (P != Nil) {
+            printf("%d. %s\n", i, P->Info);
+            P = P->Next;
+            i++;
+        }
+    }
+    
+}
+
+// int main(){
+//     ArrayBarang store = CreateArrayBarang();
+//     Barang ayam = createBarang("ayam", 10000);
+//     addBarang(&store, ayam);
+//     Barang bebek = createBarang("bebek", 20000);
+//     addBarang(&store, bebek);
+//     Barang cacing = createBarang("cacing", 30000);
+//     addBarang(&store, cacing);
+//     Barang domba = createBarang("domba", 40000);
+//     addBarang(&store, domba);
+//     Barang elang = createBarang("elang", 50000);
+//     addBarang(&store, elang);
+//     LinkedList wishlist;
+//     CreateEmpty(&wishlist);
+//     WishlistAdd(&store, &wishlist);
+//     WishlistAdd(&store, &wishlist);
+//     WishlistAdd(&store, &wishlist);
+//     WishlistShow(&wishlist);
+//     WishlistSwap(&wishlist, 1, 3);
+//     WishlistShow(&wishlist);
+//     WishlistRemoveIndex(&wishlist, 2);
+//     WishlistShow(&wishlist);
+//     WishlistRemove(&wishlist);
+//     WishlistShow(&wishlist);
+//     WishlistClear(&wishlist);
+//     WishlistShow(&wishlist);
+//     return 0;
+// }
