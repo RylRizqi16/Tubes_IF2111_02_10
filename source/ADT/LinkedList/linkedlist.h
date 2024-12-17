@@ -27,8 +27,6 @@ Node* Search(LinkedList L, const char *X);
 
 void InsVLast(LinkedList *L, const char *X);
 
-void PrintInfo(LinkedList L);
-
 void DelIndex(LinkedList *L, int i);
 
 void DelP(LinkedList *L, const char *X);

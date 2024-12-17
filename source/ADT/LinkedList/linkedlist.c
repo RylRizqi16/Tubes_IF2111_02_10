@@ -53,17 +53,6 @@ void InsVLast(LinkedList *L, const char *X) {
     }
 }
 
-void PrintInfo(LinkedList L) {
-    Node *P = L;
-    printf("[");
-    while (P != Nil) {
-        printf("%s", P->Info);
-        P = P->Next;
-        if (P != Nil) printf(",");
-    }
-    printf("]\n");
-}
-
 void DelIndex(LinkedList *L, int i) {
     if (IsEmpty(*L)) {
         printf("Penghapusan barang WISHLIST gagal dilakukan, WISHLIST kosong!\n");
