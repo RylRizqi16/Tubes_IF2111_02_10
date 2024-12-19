@@ -13,11 +13,17 @@ void addBarang(ArrayBarang *array, Barang b) {
         array->Capacity *= 2;
         Barang *newData = (Barang *)realloc(array->data, array->Capacity * sizeof(Barang));
         if (newData == NULL) {
-        printf("Gagal mengalokasikan memori tambahan untuk ArrayBarang.\n");
-        return;
+            printf("Gagal mengalokasikan memori tambahan untuk ArrayBarang.\n");
+            return;
         }
         array->data = newData;
     }
+    printf("Masukkan harga untuk barang %s: ", b.nama);
+    STARTWORD("", "");
+    char harga[MAX_LEN];
+    WordToString(currentWord, harga);
+    b.harga = CharToInt(harga);
+
     array->data[array->Neff] = b;
     array->Neff++;
 }

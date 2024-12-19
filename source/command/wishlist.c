@@ -8,7 +8,7 @@ void WishlistAdd(ArrayBarang *store, LinkedList *wishlist) {
     char namaBarang[MAX_LEN];
     WordToString(currentWord, namaBarang);
     if (BarangDiToko(store, namaBarang)) {
-        if (Search(*wishlist, namaBarang) != Nil) {
+        if (Search(*wishlist, namaBarang) != NULL) {
             printf("%s sudah ada di wishlist!\n", namaBarang);
         } else {
             InsVLast(wishlist, namaBarang);
@@ -29,32 +29,32 @@ void WishlistSwap(LinkedList *L, int i, int j) {
         i = j;
         j = temp;
     }
-    Node *prevI = Nil;
-    Node *prevJ = Nil;
+    Node *prevI = NULL;
+    Node *prevJ = NULL;
     Node *currI = *L;
     Node *currJ = *L;
     int idx = 1;
-    while (currI != Nil && idx < i) {
+    while (currI != NULL && idx < i) {
         prevI = currI;
         currI = currI->Next;
         idx++;
     }
     idx = 1;
-    while (currJ != Nil && idx < j) {
+    while (currJ != NULL && idx < j) {
         prevJ = currJ;
         currJ = currJ->Next;
         idx++;
     }
-    if (currI == Nil || currJ == Nil) {
+    if (currI == NULL || currJ == NULL) {
         printf("Indeks i atau j tidak valid.\n");
         return;
     }
-    if (prevI != Nil) {
+    if (prevI != NULL) {
         prevI->Next = currJ;
     } else {
         *L = currJ;
     }
-    if (prevJ != Nil) {
+    if (prevJ != NULL) {
         prevJ->Next = currI;
     } else {
         *L = currI;
@@ -66,14 +66,14 @@ void WishlistSwap(LinkedList *L, int i, int j) {
 }
 
 void WishlistRemoveIndex(LinkedList *wishlist, int i) {
-    if (IsEmpty(*wishlist)) {
+    if (IsEmptyLinkedList(*wishlist)) {
         printf("Penghapusan barang WISHLIST gagal dilakukan, WISHLIST kosong!\n");
         return;
     }
     int count = 0;
     Node *P = *wishlist;
-    Node *Prev = Nil;
-    while (P != Nil) {
+    Node *Prev = NULL;
+    while (P != NULL) {
         count++;
         P = P->Next;
     }
@@ -86,7 +86,7 @@ void WishlistRemoveIndex(LinkedList *wishlist, int i) {
         Prev = P;
         P = P->Next;
     }
-    if (Prev == Nil) {
+    if (Prev == NULL) {
         *wishlist = P->Next;
     } else {
         Prev->Next = P->Next;
@@ -95,15 +95,13 @@ void WishlistRemoveIndex(LinkedList *wishlist, int i) {
     Dealokasi(&P);
 }
 
-
-
 void WishlistRemove(LinkedList *wishlist) {
     printf("Masukkan nama barang yang akan dihapus: ");
     STARTSENTENCE("", "");
     char namaBarang[MAX_LEN];
     WordToString(currentWord, namaBarang);
 
-    if (Search(*wishlist, namaBarang) != Nil) {
+    if (Search(*wishlist, namaBarang) != NULL) {
         DelP(wishlist, namaBarang);
         printf("%s berhasil dihapus dari WISHLIST!\n", namaBarang);
     } else {
@@ -112,19 +110,19 @@ void WishlistRemove(LinkedList *wishlist) {
 }
 
 void WishlistClear (LinkedList *wishlist) {
-    CreateEmpty(wishlist);
+    CreateEmptyLinkedList(wishlist);
     printf("Wishlist telah dikosongkan.\n");
 }
 
 void WishlistShow(LinkedList *wishlist) {
-    if (IsEmpty(*wishlist)) {
+    if (IsEmptyLinkedList(*wishlist)) {
         printf("Wishlist kamu kosong, tambahin dong!\n");
         return;
     } else {
         Node *P = *wishlist;
         int i = 1;
         printf("Berikut adalah isi wishlist-mu:\n");
-        while (P != Nil) {
+        while (P != NULL) {
             printf("%d. %s\n", i, P->Info);
             P = P->Next;
             i++;
@@ -146,7 +144,7 @@ void WishlistShow(LinkedList *wishlist) {
 //     Barang elang = createBarang("elang", 50000);
 //     addBarang(&store, elang);
 //     LinkedList wishlist;
-//     CreateEmpty(&wishlist);
+//     CreateEmptyLinkedList(&wishlist);
 //     WishlistAdd(&store, &wishlist);
 //     WishlistAdd(&store, &wishlist);
 //     WishlistAdd(&store, &wishlist);

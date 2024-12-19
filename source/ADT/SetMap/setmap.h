@@ -4,7 +4,6 @@
 #include "../../header/boolean.h"
 #include "../Barang/barang.h"
 
-#define Nil 0
 #define MaxEl 100
 
 typedef int JumlahBarang;

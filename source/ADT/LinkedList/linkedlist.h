@@ -5,7 +5,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#define Nil NULL
 #define MAX_LEN 100
 
 typedef struct Node {
@@ -15,9 +14,9 @@ typedef struct Node {
 
 typedef Node* LinkedList;
 
-int IsEmpty(LinkedList L);
+int IsEmptyLinkedList(LinkedList L);
 
-void CreateEmpty(LinkedList *L);
+void CreateEmptyLinkedList(LinkedList *L);
 
 Node* Alokasi(const char *X);
 
