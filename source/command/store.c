@@ -12,7 +12,7 @@ void StoreList(ArrayBarang *B) {
     printf("List barang yang ada di toko :\n");
 
     for (int i = 0; i < B->Neff; i++) {
-        printf("%d. %s\n", i + 1, B->data[i].nama);
+        printf("%d. %s - Harga: %d\n", i + 1, B->data[i].nama, B->data[i].harga);
     }
 }
 
