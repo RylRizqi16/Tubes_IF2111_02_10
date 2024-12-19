@@ -1,23 +1,27 @@
 #ifndef setmap_H
 #define setmap_H
 #include <stdio.h>
-#include "boolean.h"
-#include "barang.h"
+#include "../../header/boolean.h"
+#include "../Barang/barang.h"
 
 #define Nil 0
-#define MaxEl 205
-#define Undefined 0
+#define MaxEl 100
 
 typedef int JumlahBarang;
 
 typedef struct
 {
-    Barang Elements[MaxEl];
-    JumlahBarang JumlahElement[MaxEl];
+    Barang Elements;
+    JumlahBarang JumlahElement;
+} Barang_Jumlah;
+
+typedef struct
+{
+    Barang_Jumlah Item[MaxEl];
     int Count;
 } Keranjang;
 
-void CreateBarang(Keranjang *K);
+void CreateKeranjang(Keranjang *K);
 
 boolean IsKeranjangEmpty(Keranjang K);
 

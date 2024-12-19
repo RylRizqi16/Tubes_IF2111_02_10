@@ -1,6 +1,6 @@
 #include "setmap.h"
 
-void CreateBarang(Keranjang *K)
+void CreateKeranjang(Keranjang *K)
 {
     K->Count = Nil;
 }
