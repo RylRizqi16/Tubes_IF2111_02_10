@@ -9,6 +9,7 @@ SRC = main.c \
 	command/register.c \
 	command/work.c \
 	command/work_challenge.c \
+	command/optimasirute.c \
 	command/store.c \
 	command/help.c \
 	command/save.c \

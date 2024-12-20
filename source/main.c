@@ -6,6 +6,7 @@
 #include "command/login_logout.h"
 #include "command/register.h"
 #include "command/work.h"
+#include "command/optimasirute.h"
 #include "command/work_challenge.h"
 #include "command/store.h"
 #include "command/help.h"
@@ -105,6 +106,74 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             save(filename,items, users);
         } else if (BandingkanChar(command, "HELP") == 1 || BandingkanChar(command, "help") == 1) {
             main_menu();
+
+        } else if (BandingkanChar(command, "CART ADD") == 1 || BandingkanChar(command, "cart add") == 1) {
+            char nama_barang[50];
+            char strquantity[10];
+            int quantity;
+            printf("Masukkan nama barang: ");
+            STARTSENTENCE("", "");
+            WordToString(currentWord, nama_barang);
+
+            printf("Masukkan jumlah barang: ");
+            STARTSENTENCE("", "");
+            WordToString(currentWord, strquantity);
+            quantity = CharToInt(strquantity);
+
+            cart_add(cart, items, nama_barang, quantity);
+        } else if (BandingkanChar(command, "CART REMOVE") == 1 || BandingkanChar(command, "cart remove") == 1) {
+            char nama_barang[50];
+            char strquantity[10];
+            int quantity;
+            printf("Masukkan nama barang yang ingin dihapus: ");
+            STARTSENTENCE("", "");
+            WordToString(currentWord, nama_barang);
+
+            printf("Masukkan jumlah barang yang ingin dihapus: ");
+            STARTSENTENCE("", "");
+            WordToString(currentWord, strquantity);
+            quantity = CharToInt(strquantity);
+
+            cart_remove(cart, items, nama_barang, quantity);
+        } else if (BandingkanChar(command, "CART SHOW") == 1 || BandingkanChar(command, "cart show") == 1) {
+            cart_show(*cart);
+        } else if (BandingkanChar(command, "CART PAY") == 1 || BandingkanChar(command, "cart pay") == 1) {
+            char history[100];
+            cart_pay(cart, &PS->money, history);
+            if (history[0] != '\0') {
+                printf("Barang paling mahal yang kamu beli: %s\n", history);
+            }
+        } else if (BandingkanChar(command, "HISTORY") == 1 || BandingkanChar(command, "history") == 1) {
+            static char history[100];
+            if (history[0] != '\0') {
+                printf("Transaksi terakhir, barang paling mahal: %s\n", history);
+            } else {
+                printf("Belum ada transaksi yang tercatat.\n");
+            }
+        } else if (BandingkanChar(command, "PROFILE") == 1 || BandingkanChar(command, "profile") == 1) {
+            printf("Saldo: %d\n", PS->money);
+        } else if (BandingkanChar(command, "WISHLIST ADD") == 1 || BandingkanChar(command, "wishlist add") == 1) {
+            WishlistAdd(items, Wishlist);
+        } else if (BandingkanChar(command, "WISHLIST REMOVE") == 1 || BandingkanChar(command, "wishlist remove") == 1) {
+            WishlistRemove(Wishlist);
+        } else if (BandingkanChar(command, "WISHLIST SWAP") == 1 || BandingkanChar(command, "wishlist swap") == 1) {
+            int i, j;
+            printf("Masukkan indeks barang pertama: ");
+            scanf("%d", &i);
+            printf("Masukkan indeks barang kedua: ");
+            scanf("%d", &j);
+            WishlistSwap(Wishlist, i, j);
+        } else if (BandingkanChar(command, "WISHLIST REMOVE INDEX") == 1 || BandingkanChar(command, "wishlist remove index") == 1) {
+            int i;
+            printf("Masukkan indeks barang yang ingin dihapus: ");
+            scanf("%d", &i);
+            WishlistRemoveIndex(Wishlist, i);
+        } else if (BandingkanChar(command, "WISHLIST CLEAR") == 1 || BandingkanChar(command, "wishlist clear") == 1) {
+            WishlistClear(Wishlist);
+        } else if (BandingkanChar(command, "WISHLIST SHOW") == 1 || BandingkanChar(command, "wishlist show") == 1) {
+            WishlistShow(Wishlist);
+        } else if (BandingkanChar(command, "OPTIMASI RUTE") == 1 || BandingkanChar(command, "optimasi rute") == 1) {
+            optimasi_rute();
         } else {
             printf("Command tidak valid. Ketik HELP untuk daftar command.\n");
         }
