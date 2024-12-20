@@ -1,6 +1,6 @@
 #include "profile.h"
 
-void profile(){
-    printf("Nama : %s!\n", username);
-    printf("Saldo: %d\n", PS->money);
+void profile(ArrayUser *users, PenggunaSekarang PS){
+    printf("Nama : %s\n", users);
+    printf("Saldo: %d\n", PS.money);
 }
