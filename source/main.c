@@ -7,6 +7,7 @@
 #include "command/history.h"
 #include "command/load.h"
 #include "command/login_logout.h"
+#include "command/profile.h"
 #include "command/quit.h"
 #include "command/register.h"
 #include "command/save.h"
@@ -26,9 +27,8 @@
 #include "ADT/Stack/stack.h"
 #include "ADT/LinkedList/linkedlist.h"
 
-
 // Fungsi untuk mengolah command yang diberikan
-void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *users, QueueBarang *request, PenggunaSekarang *PS, Keranjang *cart, LinkedList *Wishlist) {
+void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *users, QueueBarang *request, PenggunaSekarang *PS, Keranjang *cart, LinkedList *Wishlist, Stack *history) {
     if (BandingkanChar(command, "QUIT") == 1 || BandingkanChar(command, "quit") == 1) {
         quit();
     } else if (*session == 0) { // Welcome Menu
@@ -61,6 +61,7 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
         }
     } else if (*session == 2) { // Main Menu
         if (BandingkanChar(command, "WORK") == 1 || BandingkanChar(command, "work") == 1) {
+            char input_job_id[10];
             int job_id;
             printf("=== Selamat datang di Work Simulator ===\n");
             printf("Pilih pekerjaan:\n");
@@ -70,25 +71,23 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             printf("4. Mewing Specialist\n");
             printf("5. Inator Connoisseur\n");
             printf("Pilihan Anda: ");
-            scanf("%d", &job_id);
+            STARTSENTENCE("", "");
+            WordToString(currentWord, input_job_id);
+            job_id = CharToInt(input_job_id);
 
             Job selected_job = get_job(job_id);
 
             if (selected_job.job_id == 0) {
                 printf("Pekerjaan tidak valid.\n");
+            } else {
+                printf("Anda telah memilih pekerjaan dengan durasi %d detik dan gaji %d rupiah.\n", selected_job.duration, selected_job.salary);
+
+                start_job(selected_job.duration, selected_job.salary);
+                PS->money += selected_job.salary;
+                printf("Uang Anda sekarang: %d\n", PS->money);
             }
-
-            printf("Anda telah memilih pekerjaan dengan durasi %d detik dan gaji %d rupiah.\n", selected_job.duration, selected_job.salary);
-
-            start_job(selected_job.duration, selected_job.salary);
-            printf("Uang Anda sekarang: %d\n", PS->money);
-            PS->money += PS->money + selected_job.salary;
-            printf("Uang Anda sekarang: %d\n", PS->money);
-
-            printf("\nSelamat, pekerjaan Anda telah selesai!\n");
         } else if (BandingkanChar(command, "WORK CHALLENGE") == 1 || BandingkanChar(command, "work challenge") == 1) {
             work_challenge(&PS->money);
-            PS -> money += 1000;
         } else if (BandingkanChar(command, "STORE LIST") == 1 || BandingkanChar(command, "store list") == 1) {
             StoreList(items);
         } else if (BandingkanChar(command, "STORE REQUEST") == 1 || BandingkanChar(command, "store request") == 1) {
@@ -134,25 +133,20 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             STARTSENTENCE("", "");
             WordToString(currentWord, strquantity);
             quantity = CharToInt(strquantity);
-
-            cart_remove(cart, items, nama_barang, quantity);
+            cart_remove(cart, nama_barang, quantity);
         } else if (BandingkanChar(command, "CART SHOW") == 1 || BandingkanChar(command, "cart show") == 1) {
             cart_show(*cart);
         } else if (BandingkanChar(command, "CART PAY") == 1 || BandingkanChar(command, "cart pay") == 1) {
-            char history[100];
             cart_pay(cart, &PS->money, history);
-            if (history[0] != '\0') {
-                printf("Barang paling mahal yang kamu beli: %s\n", history);
-            }
         } else if (BandingkanChar(command, "HISTORY") == 1 || BandingkanChar(command, "history") == 1) {
-            static char history[100];
-            if (history[0] != '\0') {
-                printf("Transaksi terakhir, barang paling mahal: %s\n", history);
-            } else {
-                printf("Belum ada transaksi yang tercatat.\n");
-            }
+            int n;
+            printf("Masukkan jumlah riwayat pembelian yang ingin ditampilkan: ");
+            STARTSENTENCE("", "");
+            WordToString(currentWord, command);
+            n = CharToInt(command);
+            History(history, n);
         } else if (BandingkanChar(command, "PROFILE") == 1 || BandingkanChar(command, "profile") == 1) {
-            printf("Saldo: %d\n", PS->money);
+            profile(PS);
         } else if (BandingkanChar(command, "WISHLIST ADD") == 1 || BandingkanChar(command, "wishlist add") == 1) {
             WishlistAdd(items, Wishlist);
         } else if (BandingkanChar(command, "WISHLIST REMOVE") == 1 || BandingkanChar(command, "wishlist remove") == 1) {
@@ -160,9 +154,14 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
         } else if (BandingkanChar(command, "WISHLIST SWAP") == 1 || BandingkanChar(command, "wishlist swap") == 1) {
             int i, j;
             printf("Masukkan indeks barang pertama: ");
-            scanf("%d", &i);
+            STARTSENTENCE("", "");
+            char inti[50], intj[50];
+            WordToString(currentWord, inti);
+            i = CharToInt(inti);
             printf("Masukkan indeks barang kedua: ");
-            scanf("%d", &j);
+            STARTSENTENCE("", "");
+            WordToString(currentWord, intj);
+            j = CharToInt(intj);
             WishlistSwap(Wishlist, i, j);
         } else if (BandingkanChar(command, "WISHLIST REMOVE INDEX") == 1 || BandingkanChar(command, "wishlist remove index") == 1) {
             int i;
@@ -190,6 +189,8 @@ int main() {
     PenggunaSekarang PS;
     Keranjang cart;
     LinkedList Wishlist;
+    Stack history;
+    CreateEmptyStack(&history);
     CreateEmptyLinkedList(&Wishlist);
     createPenggunaSekarang(&PS);
     CreateQueueBarang(&request);
@@ -217,7 +218,7 @@ int main() {
         printf(">> ");
         STARTSENTENCE("", "");
         WordToString(currentWord, input);
-        processCommand(input, &session, &items, &users, &request, &PS, &cart, &Wishlist);
+        processCommand(input, &session, &items, &users, &request, &PS, &cart, &Wishlist, &history);
     }
     return 0;
 }

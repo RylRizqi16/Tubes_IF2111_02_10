@@ -6,7 +6,8 @@
 
 typedef struct {
     boolean isLoggedIn;
-    int currentUserIdx;  // Menyimpan indeks user yang sedang login
+    char name[50]; // Menyimpan username yang sedang login
+    int currentUserIdx; // Menyimpan indeks user yang sedang login
     int money;
 } PenggunaSekarang;
 

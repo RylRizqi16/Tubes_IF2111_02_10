@@ -358,6 +358,7 @@ void work_challenge(int *money){
         printf("1. Tebak Angka (biaya: 200)\n");
         printf("2. WORDL3 (biaya: 500)\n");
         printf("3. Quantum WORDL3 (biaya: 2000)\n\n");
+        printf("4. Keluar\n");
         printf("Masukkan challenge yang ingin dimainkan: ");
         STARTWORD("","");
         if(currentWord.Length == 1 && currentWord.TabWord[0] == '1' && *money >= 200){
