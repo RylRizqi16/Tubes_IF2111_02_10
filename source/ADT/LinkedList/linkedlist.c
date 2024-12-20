@@ -2,50 +2,50 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int IsEmptyLinkedList(LinkedList L) {
-    return (L == NULL);
+int IsEmpty(LinkedList L) {
+    return (L == Nil);
 }
 
-void CreateEmptyLinkedList(LinkedList *L) {
-    *L = NULL;
+void CreateEmpty(LinkedList *L) {
+    *L = Nil;
 }
 
 Node* Alokasi(const char *X) {
     Node *P = (Node *)malloc(sizeof(Node));
-    if (P != NULL) {
+    if (P != Nil) {
         int i = 0;
         while (X[i] != '\0' && i < MAX_LEN - 1) {
             P->Info[i] = X[i];
             i++;
         }
         P->Info[i] = '\0';
-        P->Next = NULL;
+        P->Next = Nil;
     }
     return P;
 }
 
 void Dealokasi(Node **P) {
     free(*P);
-    *P = NULL;
+    *P = Nil;
 }
 
 Node* Search(LinkedList L, const char *X) {
     Node *P = L;
-    while (P != NULL) {
+    while (P != Nil) {
         if (BandingkanChar(P->Info, X)) return P;
         P = P->Next;
     }
-    return NULL;
+    return Nil;
 }
 
 void InsVLast(LinkedList *L, const char *X) {
     Node *P = Alokasi(X);
-    if (P != NULL) {
-        if (IsEmptyLinkedList(*L)) {
+    if (P != Nil) {
+        if (IsEmpty(*L)) {
             *L = P;
         } else {
             Node *last = *L;
-            while (last->Next != NULL) {
+            while (last->Next != Nil) {
                 last = last->Next;
             }
             last->Next = P;
@@ -54,16 +54,16 @@ void InsVLast(LinkedList *L, const char *X) {
 }
 
 void DelIndex(LinkedList *L, int i) {
-    if (IsEmptyLinkedList(*L)) {
+    if (IsEmpty(*L)) {
         printf("Penghapusan barang WISHLIST gagal dilakukan, WISHLIST kosong!\n");
         return;
     }
 
     int count = 0;
     Node *P = *L;
-    Node *Prev = NULL;
+    Node *Prev = Nil;
 
-    while (P != NULL) {
+    while (P != Nil) {
         count++;
         P = P->Next;
     }
@@ -79,7 +79,7 @@ void DelIndex(LinkedList *L, int i) {
         P = P->Next;
     }
 
-    if (Prev == NULL) {
+    if (Prev == Nil) {
         *L = P->Next;
     } else {
         Prev->Next = P->Next;
@@ -89,17 +89,18 @@ void DelIndex(LinkedList *L, int i) {
     Dealokasi(&P);
 }
 
+
 void DelP(LinkedList *L, const char *X) {
     Node *P = *L;
-    Node *Prev = NULL;
+    Node *Prev = Nil;
 
-    while (P != NULL && !BandingkanChar(P->Info, X)) {
+    while (P != Nil && !BandingkanChar(P->Info, X)) {
         Prev = P;
         P = P->Next;
     }
 
-    if (P != NULL) {
-        if (Prev == NULL) {
+    if (P != Nil) {
+        if (Prev == Nil) {
             *L = P->Next;
         } else {
             Prev->Next = P->Next;
@@ -107,3 +108,4 @@ void DelP(LinkedList *L, const char *X) {
         Dealokasi(&P);
     }
 }
+

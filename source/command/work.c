@@ -52,5 +52,5 @@ void start_job(int duration, int salary){
   for(i = 0; i < duration; i++){
     delay(1);
   }
-  printf("Pekerjaan selesai, +%d rupiah telah ditambahkan ke akun Anda.\n", salary);
+  printf("Pekerjaan selesai, +%d rupiah telah ditambahkan ke akun Anda.", salary);
 }

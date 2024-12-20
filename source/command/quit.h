@@ -7,7 +7,7 @@
 
 #include "save.h"
 
-void quit();
+void quit(char *filename, ArrayBarang *barangToko, ArrayUser *users);
 /* Fungsi quit */
 /* Mengakhiri program PURRMART dengan opsi untuk menyimpan state program ke file save. */
 /* I.S. : filename valid berisi nama file yang akan dituliskan,

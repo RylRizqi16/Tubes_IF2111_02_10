@@ -2,7 +2,7 @@
 
 int rng(){
     srand(time(NULL));
-    int random_number = rand()*10;
+    int random_number = rand()*23;
     return random_number;
 }
 
@@ -372,9 +372,6 @@ void work_challenge(int *money){
             *money += quantum_wordl3() - 2000;
             break;
         }
-        else if(currentWord.Length == 1 && currentWord.TabWord[0] == '4'){
-            break;
-        } 
         else{
             printf("\nMasukan tidak valid atau uang anda tidak cukup. Silahkan coba kembali.\n\n");
         }

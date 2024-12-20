@@ -3,8 +3,7 @@
     "mesinkata.h": "c",
     "queue_barang.h": "c",
     "mesinkarakter.h": "c",
-    "arraydinbarang.h": "c",
-    "setmap.h": "c"
+    "arraydinbarang.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
