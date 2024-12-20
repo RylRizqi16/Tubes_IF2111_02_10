@@ -145,3 +145,9 @@ int BandingkanChar(const char *str1, const char *str2) {
     }
     return (*str1 == '\0' && *str2 == '\0');
 }
+
+int WordToInt(Word word) {
+    char str[NMax + 1];
+    WordToString(word, str);
+    return CharToInt(str);
+}

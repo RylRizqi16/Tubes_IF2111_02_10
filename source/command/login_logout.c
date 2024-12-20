@@ -12,12 +12,13 @@ void login(ArrayUser *users, PenggunaSekarang *PS) {
     char username[MAX_LEN];
     char password[MAX_LEN];
     boolean valid = false;
-    boolean spasi = false;
-    int i = 0;
 
     while (!valid) {
-        printf("Masukkan username: ");
+        printf("Masukkan username : ");
         STARTSENTENCE("", "");
+
+        int i = 0;
+        boolean spasi = false;
         for (i = 0; i < currentWord.Length; i++) {
             username[i] = currentWord.TabWord[i];
             if (username[i] == ' ') {
@@ -26,14 +27,24 @@ void login(ArrayUser *users, PenggunaSekarang *PS) {
         }
         username[i] = '\0';
 
-        if (!spasi) {
-            if (currentWord.Length >= MAX_LEN) {
-                printf("Username terlalu panjang!\n");
-            }
+        // Check if the user wants to exit
+        if (BandingkanChar(username, "exit") == 1) {
+            printf("Kembali ke menu utama...\n");
+            return;
+        }
+
+        if (spasi) {
+            printf("Username tidak boleh mengandung spasi!\n");
+            continue;
+        }
+        if (currentWord.Length >= MAX_LEN) {
+            printf("Username terlalu panjang!\n");
+            continue;
         }
 
         printf("Masukkan password: ");
         STARTSENTENCE("", "");
+        spasi = false;
         for (i = 0; i < currentWord.Length; i++) {
             password[i] = currentWord.TabWord[i];
             if (password[i] == ' ') {
@@ -42,44 +53,48 @@ void login(ArrayUser *users, PenggunaSekarang *PS) {
         }
         password[i] = '\0';
 
-        if (!spasi) {
-            if (currentWord.Length >= MAX_LEN) {
-                printf("Password terlalu panjang!\n");
-            }
+        if (spasi) {
+            printf("Password tidak boleh mengandung spasi!\n");
+            continue;
+        }
+        if (currentWord.Length >= MAX_LEN) {
+            printf("Password terlalu panjang!\n");
+            continue;
         }
 
         if (!Apakah_Password_Valid(users, username, password)) {
-            printf("Username atau password salah!\n");
-        } else {
-            valid = true;
+            printf("Username atau password salah! Kembali ke menu utama.\n");
+            return;
         }
-    }
 
-    int userIdx;
-    for (i = IdxMin; i <= users->Neff; i++) {
-        int j = 0;
-        boolean same = true;
+        valid = true;
 
-        while (users->user[i].name[j] != '\0' && username[j] != '\0') {
-            if (users->user[i].name[j] != username[j]) {
-                same = false;
+        int userIdx;
+        for (i = IdxMin; i <= users->Neff; i++) {
+            int j = 0;
+            boolean same = true;
+
+            while (users->user[i].name[j] != '\0' && username[j] != '\0') {
+                if (users->user[i].name[j] != username[j]) {
+                    same = false;
+                    break;
+                }
+                j++;
+            }
+
+            if (same && users->user[i].name[j] == '\0' && username[j] == '\0') {
+                userIdx = i;
                 break;
             }
-            j++;
         }
 
-        if (same && users->user[i].name[j] == '\0' && username[j] == '\0') {
-            userIdx = i;
-            break;
-        }
+        PS->isLoggedIn = true;
+        PS->currentUserIdx = userIdx;
+        PS->money = users->user[userIdx].money;
+        printf("\nLogin berhasil!\n");
+        printf("Selamat datang, %s!\n", username);
+        printf("Saldo Anda saat ini: %d\n", PS->money);
     }
-
-    PS->isLoggedIn = true;
-    PS->currentUserIdx = userIdx;
-    PS->money = users->user[userIdx].money;
-    printf("Login berhasil!\n");
-    printf("Selamat datang, %s!\n", username);
-    printf("Saldo Anda saat ini: %d\n", PS->money);
 }
 
 void logout(PenggunaSekarang *PS) {

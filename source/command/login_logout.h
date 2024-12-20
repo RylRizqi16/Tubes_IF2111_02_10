@@ -20,6 +20,4 @@ boolean isUserLoggedIn(PenggunaSekarang PS);
 
 int getCurrentUserIdx(PenggunaSekarang PS);
 
-int getCurrentUserMoney(PenggunaSekarang PS);
-
 #endif
