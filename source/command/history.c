@@ -2,7 +2,7 @@
 #include "history.h"
 
 void History(Stack *history, int n) {
-    if (IsEmpty(*history)) {
+    if (IsEmptyStack(*history)) {
         printf("Kamu belum membeli barang apapun!\n");
         return;
     }
@@ -16,7 +16,11 @@ void History(Stack *history, int n) {
     if (start < 0) start = 0;
 
     for (int i = Top(*history); i >= start; i--) {
-        printf("| Barang %d           | %11d |\n", history->T[i], history->T[i] * 100);
+        if (history->T[i] != NULL) {
+            printf("| %s\n", history->T[i]);
+        } else {
+            printf("| (Null)\n");
+        }
     }
 
     printf("+---------------------+-------------+\n");

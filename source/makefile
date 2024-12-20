@@ -6,6 +6,7 @@ EXEC = PURRMART
 SRC = main.c \
 	command/cart.c \
 	command/help.c \
+	command/history.c \
 	command/load.c \
 	command/login_logout.c \
 	command/profile.c \

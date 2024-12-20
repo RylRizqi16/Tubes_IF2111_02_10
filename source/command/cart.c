@@ -62,7 +62,7 @@ void cart_add(Keranjang *cart, ArrayBarang *store, char *nama_barang, int quanti
     }
 }
 
-void cart_remove(Keranjang *cart, ArrayBarang *store, char *nama_barang, int quantity) {
+void cart_remove(Keranjang *cart, char *nama_barang, int quantity) {
     int idx = IdxKeranjang(*cart, nama_barang);
     if (idx > -1) {
         if (quantity > cart->Item[idx].JumlahElement) {
@@ -102,9 +102,9 @@ void cart_show(Keranjang cart) {
     }
 }
 
-void pay_history(Keranjang cart, char *history) {
+void pay_history(Keranjang cart, Stack *history) {
     if (cart.Count == 0) {
-        history[0] = '\0'; 
+        printf("Keranjang kamu kosong!\n");
         return;
     }
     int max_price = 0;
@@ -116,10 +116,13 @@ void pay_history(Keranjang cart, char *history) {
             expensive_item = cart.Item[i].Elements.nama;
         }
     }
-    sprintf(history, "%s %d", expensive_item, max_price);
+
+    char history_entry[100];
+    sprintf(history_entry, "%s %d", expensive_item, max_price);
+    Push(history, history_entry);
 }
 
-void cart_pay(Keranjang *cart, int *money, char *history) {
+void cart_pay(Keranjang *cart, int *money, Stack *history) {
     if (cart->Count == 0) {
         printf("Keranjang kamu kosong!\n");
         return;
