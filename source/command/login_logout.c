@@ -1,11 +1,13 @@
 #include "login_logout.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void createPenggunaSekarang(PenggunaSekarang *PS) {
     PS->isLoggedIn = false;
-    PS->currentUserIdx = -IdxUndef;
+    PS->currentUserIdx = IdxUndef;
     PS->money = 0;
+    PS->name[0] = '\0';
 }
 
 void login(ArrayUser *users, PenggunaSekarang *PS) {
@@ -91,8 +93,14 @@ void login(ArrayUser *users, PenggunaSekarang *PS) {
         PS->isLoggedIn = true;
         PS->currentUserIdx = userIdx;
         PS->money = users->user[userIdx].money;
+        int k = 0;
+        while (users->user[userIdx].name[k] != '\0') {
+            PS->name[k] = users->user[userIdx].name[k];
+            k++;
+        }
+        PS->name[k] = '\0';
         printf("\nLogin berhasil!\n");
-        printf("Selamat datang, %s!\n", username);
+        printf("Selamat datang, %s!\n", PS->name);
         printf("Saldo Anda saat ini: %d\n", PS->money);
     }
 }
@@ -106,6 +114,7 @@ void logout(PenggunaSekarang *PS) {
     PS->isLoggedIn = false;
     PS->currentUserIdx = IdxUndef;
     PS->money = 0;
+    PS->name[0] = '\0'; 
     printf("Logout berhasil!\n");
 }
 

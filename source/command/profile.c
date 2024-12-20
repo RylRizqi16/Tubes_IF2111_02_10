@@ -1,6 +1,6 @@
 #include "profile.h"
 
-void profile(PenggunaSekarang *PS, ArrayUser *users){
-    printf("Nama : %s\n", users);
+void profile(PenggunaSekarang *PS){
+    printf("Nama: %s\n", PS->name);
     printf("Saldo: %d\n", PS->money);
 }

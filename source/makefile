@@ -8,6 +8,7 @@ SRC = main.c \
 	command/help.c \
 	command/load.c \
 	command/login_logout.c \
+	command/profile.c \
 	command/quit.c \
 	command/register.c \
 	command/save.c \
