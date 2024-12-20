@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "quit.h"
 
-void quit(char *filename, ArrayBarang *barangToko, ArrayUser *users){
-    printf("kamu keluar dari PURRMART. Dadah ^ _ ^\n");
-    exit(0);
+void quit() {
+    printf("Kamu keluar dari PURRMART. Dadah ^_^/\n");
+    exit(0); 
 }
