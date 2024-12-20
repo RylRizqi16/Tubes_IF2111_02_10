@@ -5,6 +5,6 @@
 #include "../ADT/User/user.h"
 #include "login_logout.h"
 
-void profile(PenggunaSekarang PS, ArrayUser *users);
+void profile(PenggunaSekarang *PS, ArrayUser *users);
 
 #endif
