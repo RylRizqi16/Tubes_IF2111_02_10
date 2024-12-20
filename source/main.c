@@ -13,6 +13,7 @@
 #include "command/store.h"
 #include "command/wishlist.h"
 #include "command/work.h"
+#include "command/optimasirute.h"
 #include "command/work_challenge.h"
 #include "ADT/ArrayDinBarang/arraydinbarang.h"
 #include "ADT/ArrayStatikUser/arrayuser.h"
@@ -172,6 +173,8 @@ void processCommand(char *command, int *session, ArrayBarang *items, ArrayUser *
             WishlistClear(Wishlist);
         } else if (BandingkanChar(command, "WISHLIST SHOW") == 1 || BandingkanChar(command, "wishlist show") == 1) {
             WishlistShow(Wishlist);
+        } else if (BandingkanChar(command, "OPTIMASI RUTE") == 1 || BandingkanChar(command, "optimasi rute") == 1) {
+            optimasi_rute();
         } else {
             printf("Command tidak valid. Ketik HELP untuk daftar command.\n");
         }

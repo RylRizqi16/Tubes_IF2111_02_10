@@ -15,6 +15,7 @@ SRC = main.c \
 	command/wishlist.c \
 	command/work.c \
 	command/work_challenge.c \
+	command/optimasirute.c \
 	ADT/Mesin_Kata/mesinkata.c \
 	ADT/ArrayDinBarang/arraydinbarang.c \
 	ADT/ArrayStatikUser/arrayuser.c \
