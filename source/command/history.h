@@ -1,7 +1,7 @@
 #ifndef HISTORY_H
 #define HISTORY_H
 
-#include "stack.h"
+#include "../ADT/Stack/stack.h"
 
 void History(Stack *history, int n);
 
