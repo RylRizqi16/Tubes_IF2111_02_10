@@ -2,12 +2,12 @@
 
 void CreateKeranjang(Keranjang *K)
 {
-    K->Count = 0;
+    K->Count = Nil;
 }
 
 boolean IsKeranjangEmpty(Keranjang K)
 {
-    return K.Count == 0;
+    return K.Count == Nil;
 }
 
 boolean IsKeranjangFull(Keranjang K)
