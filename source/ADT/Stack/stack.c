@@ -2,21 +2,21 @@
 #include "stack.h" 
 
 void CreateEmptyStack(Stack *S){
-    Top(*S) = Nil; 
+    Top(*S) = -1; 
     S->size = 0;
 }
 
 boolean IsEmptyStack(Stack S){
-    return Top(S)==Nil; 
+    return Top(S) == -1; 
 }
 
 boolean IsFull(Stack S){
-    return Top(S)==MaxEl-1; 
+    return Top(S) == MaxEl - 1; 
 }
 
 void Push(Stack *S, NamaBarang X){
     if(IsEmptyStack(*S)){ 
-        Top(*S)=0; 
+        Top(*S) = 0; 
     }
     else{ 
         Top(*S)++; 
@@ -27,8 +27,8 @@ void Push(Stack *S, NamaBarang X){
 
 void Pop(Stack *S, NamaBarang *X){
     *X = InfoTop(*S); 
-    if(Top(*S)==0){ 
-        Top(*S) = Nil; 
+    if(Top(*S) == 0){ 
+        Top(*S) = -1; 
     }
     else{ 
         Top(*S)--; 
